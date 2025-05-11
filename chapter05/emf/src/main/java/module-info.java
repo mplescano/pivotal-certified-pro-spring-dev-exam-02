@@ -12,6 +12,7 @@ module com.apress.cems.emf {
     requires org.apache.commons.lang3;
     requires java.sql;
     requires org.slf4j;
+    requires com.oracle.database.jdbc;
     requires java.naming;
     requires java.annotation;
 
@@ -22,4 +23,5 @@ module com.apress.cems.emf {
     requires spring.tx;
     requires spring.orm;
     requires java.persistence;
+    requires lombok;
 }

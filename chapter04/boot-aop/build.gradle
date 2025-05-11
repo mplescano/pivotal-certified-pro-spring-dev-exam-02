@@ -20,14 +20,17 @@ apply plugin: 'io.spring.dependency-management'
 ext.moduleName = 'com.apress.cems.boot.test'
 
 //override any Spring Boot configurations, so Gradle build can pick up the tests
-ext['junit-jupiter.version'] = "5.6.0"
+//ext['junit-jupiter.version'] = "5.5.0-M1"
 
 dependencies {
-    compile boot.starterWeb, boot.starterJpa, misc.ojdbc, misc.lang3
+    implementation boot_bom.starterWeb, boot_bom.starterJpa, misc_bom.lang3
+    implementation (misc_bom.ojdbc) {
+        exclude group: "com.oracle.database.jdbc", module: "ucp"
+    }
 
-    testCompile testing.api, boot.starterTest, testing.platformRunner, misc.h2
-    testImplementation testing.api
-    testRuntime testing.engine, testing.platformRunner
+    testImplementation testing_bom.api, boot_bom.starterTest, testing_bom.platformRunner, misc_bom.h2
+    testImplementation testing_bom.api
+    testRuntimeOnly testing_bom.engine, testing_bom.platformRunner
 }
 
 test {
@@ -41,8 +44,8 @@ test {
     forkEvery = 1
 
     reports {
-        junitXml.enabled = true
-        html.enabled = true
+        junitXml.required = true
+        html.required = true
     }
 
     testLogging {
@@ -67,7 +70,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 04 - Spring Boot Aop",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.aop.Application",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

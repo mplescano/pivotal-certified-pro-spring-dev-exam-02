@@ -28,6 +28,7 @@ SOFTWARE.
 package com.apress.cems.sec.controllers;
 
 import com.apress.cems.sec.util.CurrentUser;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

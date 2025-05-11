@@ -1,14 +1,23 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
 
+apply plugin: 'io.spring.dependency-management'
+
 ext.moduleName = 'com.apress.cems.jupiter'
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
 
 dependencies {
     api project(':chapter03:test-base')
 
-    testImplementation testing.api, testing.easymock, testing.jmockju5, testing.platformRunner, testing.mockito
-    testRuntime testing.engine, testing.platformRunner
+    testImplementation testing_bom.api, testing_misc.easymock, testing_misc.jmockju5, testing_bom.platformRunner, testing_bom.mockito
+    testRuntimeOnly testing_bom.engine, testing_bom.platformRunner
 }
 
 test {
@@ -22,7 +31,7 @@ jar {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 03 - JUnit 5 tests",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

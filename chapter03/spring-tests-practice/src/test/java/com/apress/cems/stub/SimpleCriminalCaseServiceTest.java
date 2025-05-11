@@ -27,6 +27,7 @@ SOFTWARE.
 */
 package com.apress.cems.stub;
 
+import com.apress.cems.dao.CriminalCase;
 import com.apress.cems.dao.Detective;
 import com.apress.cems.repos.NotFoundException;
 import com.apress.cems.services.impl.SimpleCriminalCaseService;
@@ -35,6 +36,8 @@ import com.apress.cems.util.Rank;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Set;
 
 import static com.apress.cems.stub.util.TestObjectsBuilder.buildDetective;
 import static org.junit.jupiter.api.Assertions.*;
@@ -92,13 +95,13 @@ public class SimpleCriminalCaseServiceTest {
     @Test
      void findByLeadPositive() {
         var result =  service.findByLeadInvestigator(detective);
-        assertEquals(2, result.size());
+        assertEquals(result.size(), 2);
     }
 
     //negative test, we know that cases for this detective do not exist
     @Test
-    public void findByLeadNegative() {
-        // TODO 16. Analyse the stub implementation and add a test for service.findByLeadInvestigator(detective);
+     void findByOwnerNegative() {
+        // TODO 16. Analyse the stub implementation and add a test for service.findAllByOwner(owner)
     }
 
     @AfterEach

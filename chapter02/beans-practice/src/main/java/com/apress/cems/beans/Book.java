@@ -38,6 +38,9 @@ public class Book implements Item {
 
     // TODO 7. Add a constructor  that sets the value for the title property
     // and declare a value to be injected
+    public Book(String title) {
+        this.title = title;
+    }
 
     @Override
     public String getTitle() {

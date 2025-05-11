@@ -31,6 +31,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.beans.ConstructorProperties;
+
 /**
  * @author Iuliana Cosmina
  * @since 1.0
@@ -43,9 +45,12 @@ public class ComposedBeanImpl implements ComposedBean {
     private Boolean complicated;
 
     // De-comment the @Qualifier annotation  to get rid of the exception
-    @Autowired
-    public ComposedBeanImpl(/*@Qualifier("anotherSimpleBean")*/ SimpleBean simpleBean, @Value("AB123") String code, @Value("true") Boolean complicated) {
-        this.simpleBean = simpleBean;
+    // @Autowired
+    @ConstructorProperties({"anotherSimpleBean", "code", "complicated"})
+    public ComposedBeanImpl(@Qualifier("anotherSimpleBean") SimpleBean anotherSimpleBean,
+                            @Value("AB123") String code,
+                            @Value("true") Boolean complicated) {
+        this.simpleBean = anotherSimpleBean;
         this.code = code;
         this.complicated = complicated;
     }

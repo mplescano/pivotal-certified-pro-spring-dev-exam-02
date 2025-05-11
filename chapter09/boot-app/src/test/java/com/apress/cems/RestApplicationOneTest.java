@@ -71,8 +71,12 @@ class RestApplicationOneTest {
         ResponseEntity<Map> entity = restTemplate.getForEntity(
                 mgtUrl.concat("/info"), Map.class);
 
+        Map<String, Object> root = (Map<String, Object>) entity.getBody();
+
+        System.out.println("root:" + root);
+
         @SuppressWarnings("unchecked")
-        Map<String, String> content = (Map<String, String>) entity.getBody().get("app");
+        Map<String, String> content = (Map<String, String>) root.get("app");
 
         assertAll(
                 () -> assertEquals(HttpStatus.OK, entity.getStatusCode()),
@@ -95,7 +99,19 @@ class RestApplicationOneTest {
                 () -> assertEquals(HttpStatus.OK, entity.getStatusCode()),
                 () -> assertEquals(2, content.size()),
                 () -> assertEquals("UP", content.get("status")),
-                () -> assertTrue(content.containsKey("components"))
+                () -> assertTrue(content.containsKey("details"))
         );
+    }
+
+    @Test
+    void shouldReturn200WhenSendingRequestToMonitoring() {
+        @SuppressWarnings("rawtypes")
+        ResponseEntity<Map> entity = restTemplate.getForEntity(
+                mgtUrl.concat("/"), Map.class);
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> content = (Map<String, Object>) entity.getBody();
+
+        System.out.println("content:" + content);
     }
 }

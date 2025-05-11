@@ -28,16 +28,15 @@ SOFTWARE.
 package com.apress.cems.mongo;
 
 import com.apress.cems.mongo.config.AppConfig;
+import com.apress.cems.mongo.config.MongoDbServerConfig;
 import com.apress.cems.mongo.dao.Person;
 import com.apress.cems.mongo.services.PersonService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -52,14 +51,23 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { AppConfig.class})
-@Disabled
+@ContextConfiguration(classes = { MongoDbServerConfig.class, AppConfig.class})
+/*@Disabled*/
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PersonServiceTest {
 
     private Logger logger = LoggerFactory.getLogger(PersonServiceTest.class);
 
     @Autowired
     PersonService personService;
+
+    @Autowired
+    private MongoTemplate mongoDbTemplate;
+
+    @BeforeAll
+    void setUpOnce() {
+        mongoDbTemplate.createCollection(Person.class);
+    }
 
     @BeforeEach
     void setUp(){
@@ -93,6 +101,7 @@ class PersonServiceTest {
 
     void init() {
         logger.info(" -->> Starting database initialization...");
+
         Person person = new Person();
         person.setUsername("sherlock.holmes");
         person.setFirstName("Sherlock");

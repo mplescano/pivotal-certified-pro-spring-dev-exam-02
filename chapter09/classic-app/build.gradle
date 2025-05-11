@@ -1,17 +1,28 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
 apply plugin: 'war'
+apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.classic.app'
 
-dependencies {
-    api spring.webmvc, spring.data, misc.h2, misc.hikari,misc.jacksonDatabind, misc.jacksonJsr310
-    api hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator
-    compileOnly misc.servletApi
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
 
-    testImplementation testing.api, testing.platformRunner, testing.mockito, spring.test, testing.mockito, testing.api,testing.restAssured, testing.restAssuredAll
-    testRuntime testing.engine, testing.platformRunner
+dependencies {
+    api spring_bom.webmvc, spring_bom.data, misc_bom.h2, misc_bom.hikari, misc_bom.jacksonDatabind, misc_bom.jacksonJsr310
+    api hibernate_bom.ehcache, hibernate_bom.em, hibernate_bom.core, hibernate_bom.validator
+    compileOnly misc_bom.servletApi
+
+    testImplementation testing_bom.api, testing_bom.platformRunner, testing_bom.mockito, spring_bom.test, testing_bom.mockito, testing_bom.api
+    testImplementation (testing_bom.restAssured) {
+        exclude group: "com.sun.xml.bind", module: "jaxb-osgi"
+    }
+    testRuntimeOnly testing_bom.engine, testing_bom.platformRunner
 }
 
 war {
@@ -22,7 +33,7 @@ war {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 09 - Spring Web Classic App",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

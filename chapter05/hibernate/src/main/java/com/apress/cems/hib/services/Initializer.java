@@ -29,6 +29,7 @@ package com.apress.cems.hib.services;
 
 import com.apress.cems.aop.service.PersonService;
 import com.apress.cems.dao.Person;
+import com.apress.cems.repos.PersonRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,6 +45,7 @@ import java.time.LocalDateTime;
  * @since 1.0
  */
 @Service
+@Transactional(readOnly = true, propagation = Propagation.NOT_SUPPORTED)
 public class Initializer {
 
     private Logger logger = LoggerFactory.getLogger(Initializer.class);

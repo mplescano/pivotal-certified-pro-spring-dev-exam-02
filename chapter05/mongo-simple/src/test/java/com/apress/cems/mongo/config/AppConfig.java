@@ -27,15 +27,14 @@ SOFTWARE.
 */
 package com.apress.cems.mongo.config;
 
-import com.mongodb.MongoClient;
+
+import com.mongodb.client.MongoClients;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.context.annotation.*;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 /**
@@ -58,8 +57,9 @@ public class AppConfig {
     private Integer port;
 
     @Bean
-    public MongoDbFactory mongoDb() {
-        return new SimpleMongoDbFactory(new MongoClient(host, port), dbName);
+    @DependsOn("mongodExecutable")
+    public MongoDatabaseFactory mongoDb() {
+        return new SimpleMongoClientDatabaseFactory(MongoClients.create("mongodb://" + host + ":" + port), dbName);
     }
 
     @Bean

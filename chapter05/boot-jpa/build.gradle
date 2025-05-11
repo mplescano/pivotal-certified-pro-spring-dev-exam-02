@@ -20,10 +20,10 @@ apply plugin: 'io.spring.dependency-management'
 ext.moduleName = 'com.apress.cems.boot'
 
 dependencies {
-    compile boot.starterJpa, misc.javaxValidation
-    implementation boot.actuator
-    runtimeOnly misc.h2
-    testImplementation (boot.starterTest) {
+    implementation boot_bom.starterJpa, misc_bom.javaxValidation
+    implementation boot_bom.actuator
+    runtimeOnly misc_bom.h2
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
@@ -46,7 +46,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 05 - Spring Boot JPA",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.boot.Application",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

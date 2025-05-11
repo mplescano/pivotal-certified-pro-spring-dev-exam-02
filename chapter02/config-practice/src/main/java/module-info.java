@@ -11,8 +11,12 @@ module com.apress.cems.config.practice {
     requires spring.beans;
     requires spring.core;
     requires spring.jdbc;
+    requires com.oracle.database.jdbc;
     requires java.naming;
     requires java.annotation;
+    requires java.desktop;
+    requires lombok;
+    requires javax.inject;
 
     requires com.apress.cems.pojos;
 }

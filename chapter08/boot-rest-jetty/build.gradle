@@ -20,15 +20,17 @@ apply plugin: 'io.spring.dependency-management'
 ext.moduleName = 'com.apress.cems.rest'
 
 dependencies {
-    compile boot.starterJpa, boot.starterJetty
-    compile (boot.starterWeb){
+    implementation boot_bom.starterJpa, boot_bom.starterJetty, "org.springframework.boot:spring-boot-starter-validation"
+    implementation (boot_bom.starterWeb){
         exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
     }
-    runtimeOnly misc.h2
-    implementation boot.actuator
+    runtimeOnly misc_bom.h2
+    implementation boot_bom.actuator
 
-    testImplementation testing.restAssured, testing.restAssuredAll
-    testImplementation (boot.starterTest) {
+    testImplementation (testing_bom.restAssured) {
+        exclude group: "com.sun.xml.bind", module: "jaxb-osgi"
+    }
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
@@ -50,7 +52,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 08 - Spring Boot REST on Jetty",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.RestApplication",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

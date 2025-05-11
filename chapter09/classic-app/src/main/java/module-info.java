@@ -25,6 +25,7 @@ module com.apress.cems.classic.rest {
     requires java.persistence;
     requires spring.data.commons;
     requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.annotation;
     requires javax.servlet.api;
 
     opens com.apress.cems.config to spring.core;

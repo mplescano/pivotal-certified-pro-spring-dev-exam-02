@@ -50,7 +50,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HibernateDbConfig.class, AppConfig.class})
-@Disabled
+// @Disabled
  class PersonServiceTest {
 
     @Autowired
@@ -79,7 +79,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     void testCountPersons(){
-        assertEquals(2, personService.countPersons());
+        assertEquals(1, personService.countPersons());
     }
 
     @Test

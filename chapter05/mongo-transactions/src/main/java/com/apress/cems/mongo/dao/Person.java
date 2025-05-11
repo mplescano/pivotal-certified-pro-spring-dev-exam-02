@@ -37,7 +37,7 @@ import java.time.LocalDateTime;
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@Document(collection="person")
+@Document("person")
 public class Person {
 
     @Id

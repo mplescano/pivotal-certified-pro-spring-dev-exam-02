@@ -37,6 +37,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.apress.cems.aop", "com.apress.cems.repos"})
-@EnableAspectJAutoProxy(proxyTargetClass = true)
+@EnableAspectJAutoProxy
+//@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AopConfig {
 }

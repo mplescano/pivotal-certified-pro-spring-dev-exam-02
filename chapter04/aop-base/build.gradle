@@ -1,15 +1,24 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.aop.base'
 
-dependencies {
-    compile project(':chapter00:repos')
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
 
-    testCompile testing.api, testing.platformRunner, testing.mockito, spring.test
-    testImplementation testing.api
-    testRuntime testing.engine, testing.platformRunner
+dependencies {
+    implementation project(':chapter00:repos')
+
+    testImplementation testing_bom.api, testing_bom.platformRunner, testing_bom.mockito, spring_bom.test
+    testImplementation testing_bom.api
+    testRuntimeOnly testing_bom.engine, testing_bom.platformRunner
 }
 
 jar {
@@ -18,7 +27,7 @@ jar {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 04 - Spring AOP Base",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

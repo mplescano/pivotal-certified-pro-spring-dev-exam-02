@@ -29,6 +29,7 @@ package com.apress.cems.repos.util;
 
 import com.apress.cems.dao.Person;
 import org.springframework.jdbc.core.RowMapper;
+import static com.apress.cems.util.DateProcessor.toDate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

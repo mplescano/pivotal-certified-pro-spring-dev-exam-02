@@ -33,6 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.beans.ConstructorProperties;
+
 /**
  * @author Iuliana Cosmina
  * @since 1.0
@@ -46,6 +48,7 @@ public class BadComposedBean implements ComposedBean {
     private String code;
     private Boolean complicated;
 
+    @ConstructorProperties({"code", "complicated"})
     public BadComposedBean(@Value("AB123") String code, @Value("true") Boolean complicated) {
         this.code = code;
         this.complicated = complicated;

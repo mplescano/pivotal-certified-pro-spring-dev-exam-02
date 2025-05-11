@@ -28,8 +28,7 @@ SOFTWARE.
 package com.apress.cems.beans.si;
 
 import com.apress.cems.beans.ci.SimpleBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -37,10 +36,10 @@ import org.springframework.stereotype.Component;
  * @since 1.0
  */
 @Component
+@Slf4j
 public class AnotherSimpleBeanImpl implements SimpleBean {
-    private Logger logger = LoggerFactory.getLogger(AnotherSimpleBeanImpl.class);
 
     public AnotherSimpleBeanImpl() {
-        logger.debug(" >> AnotherSimpleBeanImpl constructor is called.");
+        log.debug(" >> AnotherSimpleBeanImpl constructor is called.");
     }
 }

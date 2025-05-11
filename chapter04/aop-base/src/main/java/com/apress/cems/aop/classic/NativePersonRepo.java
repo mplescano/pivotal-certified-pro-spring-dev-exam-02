@@ -83,35 +83,12 @@ public class NativePersonRepo implements PersonRepo {
         var sql = "select p.ID as ID, p.USERNAME as USERNAME," +
                 " p.FIRSTNAME as FIRSTNAME, p.LASTNAME as LASTNAME, p.HIRINGDATE as HIRINGDATE" +
                 " from PERSON p ";
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = dataSource.getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
             persons = mapPersons(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Person not found!", e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                }
-            }
         }
         return persons;
     }
@@ -136,39 +113,17 @@ public class NativePersonRepo implements PersonRepo {
         var sql = "select p.ID as ID, p.USERNAME as USERNAME," +
                 " p.FIRSTNAME as FIRSTNAME, p.LASTNAME as LASTNAME, p.HIRINGDATE as HIRINGDATE" +
                 " from PERSON p where p.ID = ?";
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = dataSource.getConnection();
-            ps = conn.prepareStatement(sql);
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setLong(1, id);
-            rs = ps.executeQuery();
-            Set<Person> persons = mapPersons(rs);
-            if (!persons.isEmpty()) {
-                return Optional.of(persons.iterator().next());
+            try(ResultSet rs = ps.executeQuery()) {
+                Set<Person> persons = mapPersons(rs);
+                if (!persons.isEmpty()) {
+                    return Optional.of(persons.iterator().next());
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Person not found!", e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                }
-            }
         }
         return Optional.empty();
     }

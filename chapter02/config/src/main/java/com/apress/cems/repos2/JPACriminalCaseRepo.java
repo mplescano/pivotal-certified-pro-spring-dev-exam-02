@@ -32,7 +32,6 @@ import com.apress.cems.dao.Detective;
 import com.apress.cems.pojos.repos.CriminalCaseRepo;
 import com.apress.cems.repos.JdbcAbstractRepo;
 import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -42,7 +41,7 @@ import java.util.Set;
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@Component
+@Component("jpaCriminalCaseRepo")
 public class JPACriminalCaseRepo extends JdbcAbstractRepo<CriminalCase> implements CriminalCaseRepo {
     @Override
     public Set<CriminalCase> findByLeadInvestigator(Detective detective) {

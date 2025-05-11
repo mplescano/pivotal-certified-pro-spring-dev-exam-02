@@ -27,6 +27,7 @@ SOFTWARE.
 */
 package com.apress.cems.dj;
 
+import com.apress.cems.dao.Person;
 import com.apress.cems.dj.config.DataSourceConfig;
 import com.apress.cems.dj.services.PersonService;
 
@@ -34,12 +35,13 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Iuliana Cosmina
@@ -71,6 +73,18 @@ import static org.junit.jupiter.api.Assertions.fail;
     @Test
     void testFindAll() {
         assertNotNull(personService.findAll());
+    }
+
+    @Test
+    void testRepeatedEntity() {
+        Person person = new Person();
+        person.setUsername("sherlock.holmes");
+        person.setFirstName("Sherlock");
+        person.setLastName("Holmes");
+        person.setPassword("dudu");
+        person.setHiringDate(LocalDateTime.now());
+
+        assertThrows(DataIntegrityViolationException.class, () -> personService.save(person));
     }
 
 }

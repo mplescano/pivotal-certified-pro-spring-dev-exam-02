@@ -20,11 +20,9 @@ apply plugin: 'io.spring.dependency-management'
 ext.moduleName = 'com.apress.cems.boot'
 
 dependencies {
-    api boot.starterWeb
-    implementation boot.actuator
-    testImplementation (boot.starterTest) {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    api boot_bom.starterWeb
+    implementation boot_bom.actuator
+    testImplementation boot_bom.starterTest
 }
 
 // decomment this after leaving a single main class to build jar
@@ -36,7 +34,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 02 - Spring Boot",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.boot3.ApplicationThree",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

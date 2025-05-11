@@ -2,12 +2,17 @@ management:
   endpoint:
     health:
       show-details: always
+  info:
+    env:
+      enabled: true
   endpoints:
     web:
       base-path: /monitoring
+      exposure:
+        include: health,info
   server:
     port: 9091
-    address: 0.0.0.0
+    address: 127.0.0.1
 info:
   app:
     name: Spring Actuator Application

@@ -11,13 +11,20 @@ subprojects {
         apply plugin: 'idea'
 
         dependencies {
-            compile project(':chapter00:dao')
-            compile misc.lang3, misc.ojdbc, misc.slf4j, misc.jsr250
-            testCompile misc.h2
-            compile (misc.logback) {
-                exclude group: "javax.activation", module: "activation"
-                exclude group: "edu.washington.cs.types.checker", module: "checker-framework"
+            implementation project(':chapter00:dao')
+            implementation misc_bom.lang3, misc_bom.slf4j, misc_bom.jsr250
+            implementation (misc_bom.ojdbc) {
+                exclude group: "com.oracle.database.jdbc", module: "ucp"
             }
+            implementation (misc_bom.logback) {
+                exclude group: "javax.activation", module: "activation"
+            }
+            compileOnly misc_bom.lombok
+            annotationProcessor misc_bom.lombok
+
+            testCompileOnly misc_bom.lombok
+            testAnnotationProcessor misc_bom.lombok
+            testImplementation misc_bom.h2
         }
 
         //because Gradle is an idiot
@@ -32,7 +39,7 @@ subprojects {
 
         afterEvaluate {
             repositories {
-                jcenter()
+                mavenCentral()
             }
 
             compileJava {

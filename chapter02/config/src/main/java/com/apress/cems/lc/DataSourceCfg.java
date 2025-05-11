@@ -28,11 +28,16 @@ SOFTWARE.
 package com.apress.cems.lc;
 
 import com.apress.cems.ex.ConfigurationException;
+import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.pool.OracleConnectionPoolDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -44,30 +49,37 @@ import java.util.Properties;
  * @since 1.0
  */
 @Configuration
+@PropertySource("classpath:db/prod-datasource.properties")
+@Slf4j
 public class DataSourceCfg {
 
-    @Bean("connectionProperties")
-    Properties connectionProperties(){
-        try {
-            return PropertiesLoaderUtils.loadProperties(
-                    new ClassPathResource("db/prod-datasource.properties"));
-        } catch (IOException e) {
-            throw new ConfigurationException("Could not retrieve connection properties!", e);
-        }
+    @Value("${driverClassName}")
+    private String driverClassName;
+
+    @Value("jdbc:oracle:${driverType}:@${serverName}:${port}:${serviceName}")
+    private String url;
+
+    @Value("${user}")
+    private String username;
+
+    @Value("${password}")
+    private String password;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
 
     @Bean
     public DataSource dataSource() {
         try {
-            final Properties props = connectionProperties();
             var ods = new OracleConnectionPoolDataSource();
             ods.setNetworkProtocol("tcp");
-            ods.setDriverType(props.getProperty("driverType"));
-            ods.setServerName(props.getProperty("serverName"));
-            ods.setDatabaseName(props.getProperty("serviceName"));
-            ods.setPortNumber(Integer.parseInt(props.getProperty("port")));
-            ods.setUser(props.getProperty("user"));
-            ods.setPassword(props.getProperty("password"));
+            ods.setDriverType(driverClassName);
+            ods.setURL(url);
+            ods.setUser(username);
+            ods.setPassword(password);
+            log.debug("url {}", url);
             return ods;
         } catch (SQLException e) {
             throw new ConfigurationException("Could not configure Oracle database!", e);

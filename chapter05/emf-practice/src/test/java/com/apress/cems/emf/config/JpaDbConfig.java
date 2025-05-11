@@ -44,13 +44,12 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.persistenceunit.PersistenceUnitManager;
+import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.io.File;
 import java.util.Properties;
 
 /**
@@ -89,13 +88,13 @@ public class JpaDbConfig {
 
         hibernateProp.put("hibernate.format_sql", true);
         hibernateProp.put("hibernate.use_sql_comments", true);
-        hibernateProp.put("hibernate.show_sql", true);
+        // hibernateProp.put("hibernate.show_sql", true);
         return hibernateProp;
     }
 
     @Bean
     public DataSource dataSource() {
-        try {
+        /*try {*/
             HikariConfig hikariConfig = new HikariConfig();
             hikariConfig.setDriverClassName(driverClassName);
             hikariConfig.setJdbcUrl(url);
@@ -106,34 +105,37 @@ public class JpaDbConfig {
             hikariConfig.setConnectionTestQuery("SELECT 1");
             hikariConfig.setPoolName("cemsPool");
             return new HikariDataSource(hikariConfig);
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             return null;
-        }
+        }*/
     }
 
     // TODO 39. Declare and configure the entity manager factory and the transaction manager beans.
+    @Bean
+    public EntityManagerFactory entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactory.setPackagesToScan("com.apress.cems.dao");
+        entityManagerFactory.setDataSource(dataSource());
+        entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManagerFactory.setJpaProperties(hibernateProperties());
+        entityManagerFactory.afterPropertiesSet();
+        // return  entityManagerFactory.getNativeEntityManagerFactory();
+        return  entityManagerFactory.getObject();
+    }
 
     @Bean
+    public PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager(entityManagerFactory());
+    }
+
+    /*@Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
         return new PersistenceExceptionTranslationPostProcessor();
-    }
+    }*/
 
-    @Bean
+    /*@Bean
     public HibernateExceptionTranslator hibernateExceptionTranslator() {
         return new HibernateExceptionTranslator();
-    }
-
-    //needed because Hibernate does not drop the database as it should
-    @PostConstruct
-    void discardDatabase(){
-        final String currentDir = System.getProperty("user.dir");
-        int start = url.indexOf("./")+ 2;
-        int end = url.indexOf(";", start);
-        String dbName = url.substring(start, end);
-        File one  = new File(currentDir.concat(File.separator).concat(dbName).concat(".mv.db"));
-        one.deleteOnExit();
-        File two  = new File(currentDir.concat(File.separator).concat(dbName).concat(".trace.db"));
-        two.deleteOnExit();
-    }
+    }*/
 
 }

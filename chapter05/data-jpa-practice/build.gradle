@@ -1,16 +1,25 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.dj.practice'
 
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
 dependencies {
-    compile project(':chapter00:dao')
-    compile spring.data, misc.hikari
-    compile hibernate.ehcache, hibernate.em, hibernate.core, hibernate.validator
-    testCompile testing.api, testing.platformRunner, testing.mockito, spring.test
-    testImplementation testing.api
-    testRuntime testing.engine, testing.platformRunner
+    implementation project(':chapter00:dao')
+    implementation spring_bom.data, misc_bom.hikari
+    implementation hibernate_bom.ehcache, hibernate_bom.em, hibernate_bom.core, hibernate_bom.validator
+    testImplementation testing_bom.api, testing_bom.platformRunner, testing_bom.mockito, spring_bom.test
+    testImplementation testing_bom.api
+    testRuntimeOnly testing_bom.engine, testing_bom.platformRunner
 }
 
 jar {
@@ -19,7 +28,7 @@ jar {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 05 - Spring Data JPA Practice",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

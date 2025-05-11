@@ -84,8 +84,14 @@ class RestApplicationTwoTest {
         ResponseEntity<Map> entity = restTemplate.getForEntity(
                 mgtUrl.concat("/health"), Map.class);
 
+        Map<String, Object> root = (Map<String, Object>) entity.getBody();
+
+        System.out.println("root:" + root);
+
+
         @SuppressWarnings("unchecked")
-        Map<String,String> content = (Map<String, String>) ((Map) ((Map) entity.getBody().get("components")).get("healthChecker")).get("details");
+        Map<String,String> content = (Map<String, String>) ((Map)((Map) Objects.requireNonNull(root).get("components")).get("healthChecker")).get("details");
+
         assertAll(
                 () -> assertEquals(HttpStatus.OK, entity.getStatusCode()),
                 () -> assertTrue(content.containsKey("personInit")),

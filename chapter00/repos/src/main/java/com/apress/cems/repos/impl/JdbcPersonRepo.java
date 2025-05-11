@@ -71,7 +71,7 @@ public class JdbcPersonRepo extends JdbcAbstractRepo<Person> implements PersonRe
     @Override
     public Optional<Person> findByCompleteName(String firstName, String lastName) {
         var sql = "select ID, USERNAME, FIRSTNAME, LASTNAME, PASSWORD, HIRINGDATE from PERSON where FIRSTNAME= ? and LASTNAME= ?";
-        return Optional.of(jdbcTemplate.queryForObject(sql, new Object[]{firstName, lastName}, rowMapper));
+        return Optional.of(jdbcTemplate.queryForObject(sql, rowMapper, firstName, lastName));
     }
 
     @Override

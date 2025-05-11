@@ -35,9 +35,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
-import java.io.File;
 import java.util.Properties;
 
 /**
@@ -74,13 +72,13 @@ public class DataSourceConfig {
 
         hibernateProp.put("hibernate.format_sql", true);
         hibernateProp.put("hibernate.use_sql_comments", true);
-        hibernateProp.put("hibernate.show_sql", true);
+        // hibernateProp.put("hibernate.show_sql", true);
         return hibernateProp;
     }
 
     @Bean
     public DataSource dataSource() {
-        try {
+        /*try {*/
             HikariConfig hikariConfig = new HikariConfig();
             hikariConfig.setDriverClassName(driverClassName);
             hikariConfig.setJdbcUrl(url);
@@ -90,21 +88,8 @@ public class DataSourceConfig {
             hikariConfig.setMaximumPoolSize(5);
             hikariConfig.setPoolName("cemsPool");
             return new HikariDataSource(hikariConfig);
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             return null;
-        }
-    }
-
-    //needed because Hibernate does not drop the database as it should
-    @PostConstruct
-    void discardDatabase(){
-        final String currentDir = System.getProperty("user.dir");
-        int start = url.indexOf("./")+ 2;
-        int end = url.indexOf(";", start);
-        String dbName = url.substring(start, end);
-        File one  = new File(currentDir.concat(File.separator).concat(dbName).concat(".mv.db"));
-        one.deleteOnExit();
-        File two  = new File(currentDir.concat(File.separator).concat(dbName).concat(".trace.db"));
-        two.deleteOnExit();
+        }*/
     }
 }

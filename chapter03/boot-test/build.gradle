@@ -19,14 +19,17 @@ apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.boot.test'
 
-//override any Spring Boot configurations, so this version of JUnit Jupiter can be used
-ext['junit-jupiter.version'] = "5.6.0"
+//override any Spring Boot configurations, so this version of JUnit can be used
+//ext['junit-jupiter.version'] = "5.5.0"
 
 dependencies {
-    api boot.starterWeb, boot.starterJpa, misc.ojdbc
+    api boot_bom.starterWeb, boot_bom.starterJpa
+    api (misc_bom.ojdbc) {
+        exclude group: "com.oracle.database.jdbc", module: "ucp"
+    }
 
-    testImplementation testing.api, boot.starterTest, misc.h2
-    testRuntime testing.engine, testing.platformRunner
+    testImplementation testing_bom.api, boot_bom.starterTest, testing_bom.platformRunner, misc_bom.h2
+    testRuntimeOnly testing_bom.engine, testing_bom.platformRunner
 }
 
 test {
@@ -40,8 +43,10 @@ test {
     forkEvery = 1
 
     reports {
-        junitXml.enabled = true
-        html.enabled = true
+        //junitXml.enabled(true)
+        junitXml.required = true
+        //html.enabled(true)
+        html.required = true
     }
 
     testLogging {
@@ -67,7 +72,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 03 - Spring Boot Testing",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.boot.Application",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

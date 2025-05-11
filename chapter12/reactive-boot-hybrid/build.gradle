@@ -19,12 +19,12 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     implementation project(':chapter11:entities')
-    implementation boot.starterJpa, boot.starterWeb, boot.actuator, misc.projectReactor
+    implementation boot_bom.starterJpa, boot_bom.starterWeb, boot_bom.actuator, misc_bom.projectReactor
 
-    runtimeOnly misc.h2
+    runtimeOnly misc_bom.h2
 
-    testImplementation testing.reactorTest, boot.starterWebflux
-    testImplementation (boot.starterTest) {
+    testImplementation testing_bom.reactorTest, boot_bom.starterWebflux
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
@@ -47,7 +47,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 12 - Spring Boot Webflux Application - not totally reactive - using rest controllers",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.reactive.ReactiveHybridApplication",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

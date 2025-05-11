@@ -48,17 +48,20 @@ public class CollectionHolder {
 
     private Map<String, SimpleBean> simpleBeanMap2;
 
-    @Autowired @Qualifier("simpleBeanList2")
+    @Autowired
+    //@Qualifier("simpleBeanList2")
     public void setSimpleBeanList2(List<SimpleBean> simpleBeanList2) {
         this.simpleBeanList2 = simpleBeanList2;
     }
 
-    @Autowired @Qualifier("simpleBeanSet2")
+    @Autowired
+    //@Qualifier("simpleBeanSet2")
     public void setSimpleBeanSet2(Set<SimpleBean> simpleBeanSet2) {
         this.simpleBeanSet2 = simpleBeanSet2;
     }
 
-    @Autowired @Qualifier("simpleBeanMap2")
+    @Autowired
+    //@Qualifier("simpleBeanMap2")
     public void setSimpleBeanMap2(Map<String, SimpleBean> simpleBeanMap2) {
         this.simpleBeanMap2 = simpleBeanMap2;
     }

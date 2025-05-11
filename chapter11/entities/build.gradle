@@ -7,12 +7,21 @@ buildscript {
 
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.entities'
 
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
 dependencies {
-    implementation spring.contextSupport, hibernate.core, misc.javaxValidation, misc.jacksonDatabind, misc.jacksonJsr310
+    implementation spring_bom.contextSupport, hibernate_bom.core, misc_bom.javaxValidation, misc_bom.jacksonDatabind, misc_bom.jacksonJsr310
 }
 
 jar {
@@ -21,7 +30,7 @@ jar {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 11 - Entities for microservices",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

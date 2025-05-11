@@ -55,6 +55,10 @@ public class MiscAppCfgTest {
         var taxFormula = ctx.getBean("taxScotlandFormula", TaxFormula.class);
         assertNotNull(taxFormula);
         assertTrue(taxFormula instanceof ScotlandRateFormula);
+
+        var noTaxFormula = ctx.getBean("taxNoFormula", TaxFormula.class);
+        assertNotNull(noTaxFormula);
+
         ctx.close();
     }
 }

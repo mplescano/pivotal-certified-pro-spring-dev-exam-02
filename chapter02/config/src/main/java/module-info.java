@@ -11,9 +11,11 @@ module com.apress.cems.config {
     requires spring.beans;
     requires spring.core;
     requires spring.jdbc;
+    requires com.oracle.database.jdbc;
     requires java.naming;
     requires java.annotation;
+    requires java.desktop;
+    requires lombok;
 
     requires com.apress.cems.pojos;
-    requires ojdbc8;
 }

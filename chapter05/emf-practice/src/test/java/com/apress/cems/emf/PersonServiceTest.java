@@ -36,10 +36,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +50,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {JpaDbConfig.class, AppConfig.class})
-@Disabled
+/*@Disabled*/
  class PersonServiceTest {
 
     @Autowired
@@ -76,4 +77,15 @@ import static org.junit.jupiter.api.Assertions.*;
         assertNotNull(personService.findAll());
     }
 
+    @Test
+    void testRepeatedEntity() {
+        Person person = new Person();
+        person.setUsername("sherlock.holmes");
+        person.setFirstName("Sherlock");
+        person.setLastName("Holmes");
+        person.setPassword("dudu");
+        person.setHiringDate(LocalDateTime.now());
+
+        assertThrows(DataIntegrityViolationException.class, () -> personService.save(person));
+    }
 }

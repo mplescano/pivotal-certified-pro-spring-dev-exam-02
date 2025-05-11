@@ -27,11 +27,15 @@ SOFTWARE.
 */
 package com.apress.cems.config;
 
+import com.apress.cems.pojos.repos.DetectiveRepo;
+import com.apress.cems.pojos.repos.EvidenceRepo;
 import com.apress.cems.repos.JdbcDetectiveRepo;
 import com.apress.cems.repos.JdbcEvidenceRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.sql.DataSource;
@@ -42,9 +46,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author Iuliana Cosmina
  * @since 1.0
  */
+@Slf4j
 class TestDataSourceConfigTest {
-
-    private Logger logger = LoggerFactory.getLogger(TestDataSourceConfigTest.class);
 
     @Test
     void testMultipleCfgSource() {
@@ -52,7 +55,7 @@ class TestDataSourceConfigTest {
                 new AnnotationConfigApplicationContext(TestDataSourceConfig.class, RepositoryConfig.class);
 
         for (String beanName : ctx.getBeanDefinitionNames()) {
-            logger.info("Bean " + beanName + " of type "
+            log.info("Bean " + beanName + " of type "
                     + ctx.getBean(beanName).getClass().getSimpleName());
         }
 

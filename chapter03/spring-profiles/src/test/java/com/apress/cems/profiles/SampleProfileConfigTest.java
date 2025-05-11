@@ -54,7 +54,7 @@ import java.util.Arrays;
  * @since 1.0
  */
 //@ActiveProfiles("one")
-//@ActiveProfiles("two")
+@ActiveProfiles("two")
 @SpringJUnitConfig(classes = SampleProfileConfigTest.TestCtxConfig.class)
 class SampleProfileConfigTest {
 

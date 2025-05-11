@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 1.0
  */
 @ResponseStatus(value= HttpStatus.NOT_FOUND, reason="Requested item not found")
-public class NotFoundException extends RuntimeException {
+public class NotFoundException extends Exception {
 
     private Long objIdentifier;
 

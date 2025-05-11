@@ -10,6 +10,14 @@ management:
       enabled: true
       cache:
         time-to-live: 6000
+    health:
+      show-details: always
   trace:
     http:
       include: remote_address, parameters
+
+info:
+  app:
+    name: Spring Actuator
+    version: 1.0.0
+    description: Simple app

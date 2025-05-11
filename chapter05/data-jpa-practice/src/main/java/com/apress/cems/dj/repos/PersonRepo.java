@@ -29,6 +29,7 @@ package com.apress.cems.dj.repos;
 
 import com.apress.cems.dao.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
@@ -40,6 +41,9 @@ import java.util.Optional;
 // TODO 42. Complete the definition of this interface to make the tests in PersonServiceTest.java pass.
 public interface PersonRepo extends JpaRepository<Person, Long> {
 
-    Optional<Person> findByUsername(String username);
-    Optional<Person> findByCompleteName(String firstName, String lastName);
+    @Query("select p from Person p where p.username = :username")
+    Optional<Person> findByUsername(@Param("username") String username);
+
+    @Query("select p from Person p where p.firstName = :fn and p.lastName = :ln")
+    Optional<Person> findByCompleteName(@Param("fn") String firstName, @Param("ln") String lastName);
 }

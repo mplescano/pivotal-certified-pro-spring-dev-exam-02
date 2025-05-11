@@ -12,10 +12,9 @@ subprojects {
         apply plugin: 'idea'
 
         dependencies {
-            compile misc.lang3, misc.slf4j, misc.jsr250
-            compile (misc.logback) {
+            implementation misc_bom.lang3, misc_bom.slf4j, misc_bom.jsr250
+            implementation (misc_bom.logback) {
                 exclude group: "javax.activation", module: "activation"
-                exclude group: "edu.washington.cs.types.checker", module: "checker-framework"
             }
         }
 
@@ -31,7 +30,7 @@ subprojects {
 
         afterEvaluate {
             repositories {
-                jcenter()
+                mavenCentral()
             }
 
             compileJava {

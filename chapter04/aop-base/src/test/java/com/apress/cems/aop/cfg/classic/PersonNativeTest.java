@@ -53,7 +53,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+//@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class PersonNativeTest {
 
     @Autowired

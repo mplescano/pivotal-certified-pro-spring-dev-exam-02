@@ -27,6 +27,7 @@ SOFTWARE.
 */
 package com.apress.cems.fun;
 
+import com.apress.cems.fun.pack.FunBean;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -46,5 +47,9 @@ class FunBeanConfigTest {
 
         FunBean funBean = ctx.getBean(FunBean.class);
         assertNotNull(funBean);
+
+        /*FunBean funBean2 = new FunBean();
+        funBean2.initMethod();
+        funBean2.beanInitMethod();*/
     }
 }

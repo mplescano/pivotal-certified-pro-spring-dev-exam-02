@@ -55,6 +55,7 @@ public class JpaPersonRepo implements PersonRepo {
     private EntityManager entityManager;
 
     // TODO 40. Annotate this method with the proper annotation to make the test pass
+    @PersistenceContext
     void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -109,9 +110,9 @@ public class JpaPersonRepo implements PersonRepo {
     public Optional<Person> findByCompleteName(String firstName, String lastName) {
         // TODO 41. Replace the current implementation with one using a query with named parameters.
         Person person = (Person) entityManager
-                .createQuery("from Person p where p.firstName=?1 and p.lastName=?2")
-                .setParameter(1, firstName)
-                .setParameter(2, lastName)
+                .createQuery("from Person p where p.firstName=:fn and p.lastName=:ln")
+                .setParameter("fn", firstName)
+                .setParameter("ln", lastName)
                 .getSingleResult();
         return person == null? Optional.empty() :Optional.of(person);
     }

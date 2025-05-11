@@ -49,7 +49,7 @@ public class TestRepoCfg {
     @Autowired
     CriminalCaseRepo jdbcRepo;
 
-    @Qualifier("JPACriminalCaseRepo")
+    @Qualifier("jpaCriminalCaseRepo")
     @Autowired
     CriminalCaseRepo jpaRepo;
 

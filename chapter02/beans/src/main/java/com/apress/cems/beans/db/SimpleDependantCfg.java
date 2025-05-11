@@ -29,8 +29,7 @@ package com.apress.cems.beans.db;
 
 import com.apress.cems.beans.ci.SimpleBean;
 import com.apress.cems.beans.ci.SimpleBeanImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
@@ -40,13 +39,12 @@ import org.springframework.context.annotation.Description;
  * @since 1.0
  */
 @Configuration
+@Slf4j
 public class SimpleDependantCfg {
-
-    private Logger logger = LoggerFactory.getLogger(SimpleDependantCfg.class);
 
     @Bean
     SimpleBean simpleBean(){
-        logger.info("---> Creating 'simpleBean' ");
+        log.info("---> Creating 'simpleBean' ");
         return new SimpleBeanImpl();
     }
 
@@ -54,5 +52,11 @@ public class SimpleDependantCfg {
     @Description("This bean depends on 'simpleBean'")
     DependantBean dependantBean(){
       return new DependantBeanImpl(simpleBean());
+    }
+
+    @Bean
+    @Description("This bean depends on 'simpleBean'")
+    DependantBean dependantBean2(SimpleBean simpleBean){
+        return new DependantBeanImpl(simpleBean);
     }
 }

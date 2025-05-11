@@ -51,8 +51,9 @@ class PersonServiceTest {
     PersonService personService;
 
 
-    //@Test
+    @Test
     void testUpdatePassword() {
         // TODO 34. Complete definition of this test in order for it to pass
+        personService.findById(2L).ifPresent(p -> assertThrows(MailSendingException.class, () -> personService.updatePassword(p, "123newpass")));
     }
 }

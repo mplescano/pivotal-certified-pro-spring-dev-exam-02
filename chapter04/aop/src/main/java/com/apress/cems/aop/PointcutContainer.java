@@ -40,7 +40,7 @@ public class PointcutContainer {
     @Pointcut("execution(* com.apress.cems.*.*PersonRepo+.findBy*(..))")
     public void repoFind() {}
 
-    @Pointcut ("execution (* com.apress.cems.aop.service.*Service+.findBy*(..)))")
+    @Pointcut ("execution (* com.apress.cems.aop.service.*Service+.find*(..)))")
     public void serviceFind() {}
 
     @Pointcut("execution (* com.apress.cems.aop.service.*Service+.save(..)) && args(person) && target(service)")

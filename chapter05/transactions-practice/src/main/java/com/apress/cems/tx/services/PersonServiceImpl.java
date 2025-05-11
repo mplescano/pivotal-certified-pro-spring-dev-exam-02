@@ -45,6 +45,7 @@ import java.util.Set;
  */
 @Service
 // TODO 32. Make all methods required to be executed in a read only transaction.
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class PersonServiceImpl implements PersonService {
     private PersonRepo personRepo;
 
@@ -82,6 +83,7 @@ public class PersonServiceImpl implements PersonService {
      * TODO 33. Make this method execute in a read-write transaction and declare the
      *  transaction to rollback in case a MailSendingException exception is used
      */
+    @Transactional(rollbackFor = MailSendingException.class)
     @Override
     public Person updatePassword(Person person, String password) throws MailSendingException {
         person.setPassword(password);

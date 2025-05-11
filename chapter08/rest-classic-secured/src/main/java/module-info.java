@@ -23,9 +23,12 @@ module com.apress.cems.classic.rest.sec {
 
     requires thymeleaf.spring5;
     requires thymeleaf;
+    requires java.validation;
     requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.annotation;
     requires spring.security.web;
     requires spring.security.core;
+    requires spring.security.crypto;
     requires spring.security.config;
 
     exports com.apress.cems.rest.sec.config;

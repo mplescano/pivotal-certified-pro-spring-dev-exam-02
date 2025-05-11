@@ -1,13 +1,24 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
 
+apply plugin: 'io.spring.dependency-management'
+
 ext.moduleName = 'com.apress.cems.config'
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
 
 dependencies {
     api project(':chapter02:pojos')
     api project(':chapter02:beans')
-    api misc.h2, spring.jdbc, spring.webmvc, misc.jsr250, misc.inject, misc.ojdbc
+    api misc_bom.h2, spring_bom.jdbc, spring_bom.webmvc, misc_bom.jsr250, misc.inject
+
+    testImplementation testing_bom.api, spring_bom.test, testing_bom.vintageEngine
 }
 
 jar {
@@ -16,7 +27,7 @@ jar {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 02 - Configurations",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

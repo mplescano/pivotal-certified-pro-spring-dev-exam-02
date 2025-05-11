@@ -28,7 +28,10 @@ SOFTWARE.
 package com.apress.cems.beans.aw;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -37,14 +40,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author Iuliana Cosmina
  * @since 1.0
  */
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = NotRequiredBeanCfg.class)
 public class NotRequiredBeanCfgTest {
 
-    @Test
-    void testAutowire(){
-        var ctx = new AnnotationConfigApplicationContext(NotRequiredBeanCfg.class);
-        assertNotNull(ctx);
+    @Autowired
+    BadBean badBean;
 
-        BadBean badBean = ctx.getBean(BadBean.class);
+    @Test
+    void testAutowire() {
         assertNotNull(badBean.getBeanTwo());
         assertNull(badBean.getMissingBean());
     }

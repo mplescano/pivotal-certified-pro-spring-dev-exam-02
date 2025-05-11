@@ -83,6 +83,7 @@ class JdbcPersonRepoTest {
     @Test
     void testFindByIdNegative(){
         // TODO 26: Use the JdbcTemplate instance to query for a person that does not exist and make this test pass
+        assertThrows(EmptyResultDataAccessException.class, () -> personRepo.findById(-911L));
     }
 
     @Test
@@ -94,7 +95,7 @@ class JdbcPersonRepoTest {
 
     @Test
     void testFindAll(){
-        int result = 0;
+        int result = (int) personRepo.count();
         // TODO 27: Use the JdbcTemplate instance to query for the number of rows in the PERSON table
         assertEquals(2, result);
     }

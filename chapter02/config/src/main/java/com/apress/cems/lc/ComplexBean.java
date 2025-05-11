@@ -27,6 +27,7 @@ SOFTWARE.
 */
 package com.apress.cems.lc;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,20 +40,20 @@ import javax.annotation.PreDestroy;
  * @since 1.0
  */
 @Component
+@Slf4j
 public class ComplexBean {
-    private Logger logger = LoggerFactory.getLogger(ComplexBean.class);
 
     private SimpleBean simpleBean;
 
     private AnotherSimpleBean anotherSimpleBean;
 
     public ComplexBean() {
-        logger.info("Stage 1: Calling the constructor.");
+        log.info("Stage 1: Calling the constructor.");
     }
 
     @Autowired
     public void setSimpleBean(SimpleBean simpleBean) {
-        logger.info("Stage 2: Calling the setter.");
+        log.info("Stage 2: Calling the setter.");
         this.simpleBean = simpleBean;
     }
 
@@ -63,7 +64,8 @@ public class ComplexBean {
      */
     @PostConstruct
     private void initMethod() {
-        logger.info("Stage 3: Calling the initMethod.");
+        log.info("Stage 3: Calling the initMethod.");
+        log.info("this.simpleBean: {}", this.simpleBean);
         var ct = System.currentTimeMillis();
         if (ct % 2 == 0) {
             anotherSimpleBean = new AnotherSimpleBean();
@@ -72,6 +74,6 @@ public class ComplexBean {
 
     @PreDestroy
     private void destroy(){
-        logger.info("Stage 4: Calling the destroy method.");
+        log.info("Stage 4: Calling the destroy method.");
     }
 }

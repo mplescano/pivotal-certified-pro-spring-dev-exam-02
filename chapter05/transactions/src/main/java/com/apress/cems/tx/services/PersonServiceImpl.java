@@ -99,6 +99,7 @@ public class PersonServiceImpl implements PersonService {
     private void sendNotification() throws MailSendingException {
         if (true) {
             throw new MailSendingException("Confirmation email for password could not be sent. Password was not updated.");
+            // throw new RuntimeException("Anothe error");
         }
     }
 

@@ -18,24 +18,22 @@ apply plugin: 'java-library'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-dependencies {
-    implementation boot.starterR2dbc, misc.r2dbcH2, boot.starterWebflux, boot.actuator
-    //compileOnly misc.lombok
-    //annotationProcessor misc.lombok
 
-    testImplementation testing.reactorTest
-    testImplementation boot.r2dbcTest
-    testImplementation (boot.starterTest) {
+dependencies {
+    implementation boot_bom.starterR2dbc, boot_bom.starterR2dbcH2, boot_bom.starterWebflux, boot_bom.actuator, spring_bom.relational, cloud_bom.dataCommons
+
+    testImplementation testing_bom.reactorTest
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
 }
 
-dependencyManagement {
+/*dependencyManagement {
     imports {
-        mavenBom boot.r2dbcBom
+        mavenBom spring.dataBom
     }
-}
+}*/
 
 test {
     useJUnitPlatform()
@@ -45,15 +43,17 @@ test {
     }
 }
 
+// decomment this after leaving a single main class to build jar
 jar {
     archiveBaseName = "reactive-boot-r2dbc"
     manifest {
         attributes(
                 "Created-By": System.getProperty('java.version'),
-                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 12 - Spring Boot R2DBC app",
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 12 - Spring Boot Webflux Application - not totally reactive - using router functions",
                 "Implementation-Version": archiveVersion,
-                "Main-Class"         : "com.apress.cems.reactive.R2dbcApplication",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Main-Class"         : "com.apress.cems.reactive.ReactiveApplication",
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }
+

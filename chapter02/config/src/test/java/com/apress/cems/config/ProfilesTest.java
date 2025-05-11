@@ -28,23 +28,23 @@ SOFTWARE.
 package com.apress.cems.config;
 
 import com.apress.cems.pojos.repos.EvidenceRepo;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @ContextConfiguration(classes = {ProdDataSourceConfig.class, TestProfileDataSourceConfig.class, RepositoryConfig.class})
 public class ProfilesTest {
@@ -57,7 +57,7 @@ public class ProfilesTest {
 
     @Test
     public void testInjectedBeans(){
-        assertTrue(dataSource instanceof DriverManagerDataSource);
+        assertNotNull(dataSource instanceof DriverManagerDataSource);
         assertNotNull(evidenceRepo);
     }
 

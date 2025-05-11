@@ -14,6 +14,7 @@ module com.apress.cems.tx.practice {
     requires spring.core;
     requires spring.jdbc;
     requires spring.tx;
+    requires com.oracle.database.jdbc;
     requires java.naming;
     requires java.annotation;
 }

@@ -11,12 +11,14 @@ subprojects {
         apply plugin: 'idea'
 
         dependencies {
-            compile project(':chapter00:dao')
-            compile project(':chapter00:repos')
-            compile misc.lang3, misc.slf4j, misc.jsr250, misc.h2, misc.aspectjweaver
-            compile (misc.logback) {
+            implementation project(':chapter00:dao')
+            implementation project(':chapter00:repos')
+            implementation misc_bom.lang3, misc_bom.slf4j, misc_bom.jsr250, misc_bom.h2, misc_bom.aspectjweaver
+            implementation (misc_bom.ojdbc) {
+                exclude group: "com.oracle.database.jdbc", module: "ucp"
+            }
+            implementation (misc_bom.logback) {
                 exclude group: "javax.activation", module: "activation"
-                exclude group: "edu.washington.cs.types.checker", module: "checker-framework"
             }
         }
 
@@ -32,7 +34,7 @@ subprojects {
 
         afterEvaluate {
             repositories {
-                jcenter()
+                mavenCentral()
             }
 
             compileJava {

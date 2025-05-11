@@ -7,10 +7,10 @@ println(' This project is a Criminal Evidence Management System proof of concept
 include 'chapter00:dao'
 include 'chapter00:repos'
 
-include 'chapter02:beans'
-include 'chapter02:beans-practice'
 include 'chapter02:pojos'
 include 'chapter02:pojos-practice'
+include 'chapter02:beans'
+include 'chapter02:beans-practice'
 include 'chapter02:config'
 include 'chapter02:config-practice'
 include 'chapter02:xml'

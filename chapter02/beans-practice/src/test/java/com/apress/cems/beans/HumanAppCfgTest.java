@@ -29,8 +29,12 @@ package com.apress.cems.beans;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,19 +43,22 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since 1.0
  */
 // Comment the @Disabled annotation to run your test
-@Disabled
+// @Disabled
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = HumanAppCfg.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class HumanAppCfgTest {
+
+    @Autowired
+    ApplicationContext ctx;
 
     @Test
     void testHumanAndItem() {
-        ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(HumanAppCfg.class);
 
         Human humanBean = ctx.getBean(Human.class);
 
         assertNotNull(humanBean);
         assertNotNull(humanBean.getItem());
         assertNotNull(humanBean.getItem().getTitle());
-
-        ctx.close();
     }
 }

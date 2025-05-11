@@ -25,54 +25,51 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.apress.cems.practice.boot;
+package com.apress.cems.boot.practice;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@AutoConfigureMockMvc
-class SpringBootWebApplicationTest {
+@Disabled("Because of uncompleted tasks. Comment this line to run.")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class SpringBootWebApplication3Test {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @LocalServerPort
+    private Integer port;
 
     @Test
     void testList() throws Exception {
-        mockMvc.perform(get("/persons/list"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("persons/list"))
-                .andExpect(model().attribute("persons", hasSize(4)))
-                .andExpect(model().attribute("persons", hasItem(
-                        anyOf(
-                                hasProperty("id", is(1L)),
-                                hasProperty("firstName", is("Sherlock")),
-                                hasProperty("lastName", is("Holmes"))
-                        )
-                )));
+              String responseStr =   given().baseUri("http://localhost")
+                .port(port).when().get("/persons/list")
+                .then()
+                .assertThat().statusCode(HttpStatus.OK.value())
+                .extract().body().asString();
 
+              assertAll(
+                      () -> assertTrue(responseStr.contains("div class=\"persons\"")),
+                      () -> assertTrue(responseStr.contains("sherlock.holmes")),
+                      () -> assertTrue(responseStr.contains("nancy.drew"))
+              );
     }
 
     @Test
     void testShow() throws Exception {
-        // TODO 48. Write a test to check that checks that requesting "/persons/1" generates the appropriate response
+        // TODO 50. Write a test to check that checks that requesting "/persons/1" generates the appropriate response
     }
 
-   @Test
+    @Test
     void testError() throws Exception {
-       // TODO 49. Write a test to check that checks that requesting "/persons/99" generates the appropriate response
+        // TODO 51. Write a test to check that checks that requesting "/persons/99" generates the appropriate response
     }
 }

@@ -59,55 +59,68 @@ public class MultipleTypesBean {
 
     private Date date;
 
-    @Autowired void setNoOne(@Value("1") int noOne) {
+    @Autowired
+    void setNoOne(@Value("1") int noOne) {
         this.noOne = noOne;
     }
 
-    @Autowired void setNoTwo(@Value("2")Integer noTwo) {
+    @Autowired
+    void setNoTwo(@Value("2")Integer noTwo) {
         this.noTwo = noTwo;
     }
 
-    @Autowired void setFloatOne(@Value("5.0")float floatOne) {
+    @Autowired
+    void setFloatOne(@Value("5.0")float floatOne) {
         this.floatOne = floatOne;
     }
 
-    @Autowired void setFloatTwo(@Value("6.0")Float floatTwo) {
+    @Autowired
+    void setFloatTwo(@Value("6.0")Float floatTwo) {
         this.floatTwo = floatTwo;
     }
 
-    @Autowired void setDoubleOne(@Value("7.0")double doubleOne) {
+    @Autowired
+    void setDoubleOne(@Value("7.0")double doubleOne) {
         this.doubleOne = doubleOne;
     }
 
-    @Autowired void setDoubleTwo(@Value("8.0")Double doubleTwo) {
+    @Autowired
+    void setDoubleTwo(@Value("8.0")Double doubleTwo) {
         this.doubleTwo = doubleTwo;
     }
 
-    @Autowired void setLongOne(@Value("3")long longOne) {
+    @Autowired
+    void setLongOne(@Value("3")long longOne) {
         this.longOne = longOne;
     }
 
-    @Autowired void setLongTwo(@Value("4")Long longTwo) {
+    @Autowired
+    void setLongTwo(@Value("4")Long longTwo) {
         this.longTwo = longTwo;
     }
 
-    @Autowired void setBoolOne(@Value("true")boolean boolOne) {
+    @Autowired
+    void setBoolOne(@Value("true")boolean boolOne) {
         this.boolOne = boolOne;
     }
 
-    @Autowired void setBoolTwo(@Value("false")Boolean boolTwo) {
+    @Autowired
+    void setBoolTwo(@Value("false")Boolean boolTwo) {
         this.boolTwo = boolTwo;
     }
 
-    @Autowired void setCharOne(@Value("1")char charOne) {
+    @Autowired
+    void setCharOne(@Value("1")char charOne) {
         this.charOne = charOne;
     }
 
-    @Autowired void setCharTwo(@Value("A")Character charTwo) {
+    @Autowired
+    void setCharTwo(@Value("A")Character charTwo) {
         this.charTwo = charTwo;
     }
 
-    @Autowired void setDate(@Value("1977-10-16 00:23") Date date) {
+    @Autowired
+    void setDate(@Value("1977-10-16 00:23") Date date) {
         this.date = date;
     }
 

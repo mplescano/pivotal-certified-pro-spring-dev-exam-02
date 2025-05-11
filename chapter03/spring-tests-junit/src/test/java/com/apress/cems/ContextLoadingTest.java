@@ -41,7 +41,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@Ignore // remove this to inspect log
+//@Ignore // remove this to inspect log
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 public class ContextLoadingTest {

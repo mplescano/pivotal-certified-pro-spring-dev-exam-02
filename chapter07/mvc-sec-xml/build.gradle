@@ -1,19 +1,27 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
 apply plugin: 'war'
+apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.sec.xml'
 
-dependencies {
-    compile project(':chapter05:data-jpa')
-    compile spring.webmvc, hibernate.validator, misc.h2, misc.hikari, misc.jstl
-    compile  spring.securityWeb, spring.securityTaglibs,spring.securityConfig
-    compileOnly misc.servletApi
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
 
-    testCompile testing.api, testing.platformRunner, testing.mockito, spring.test, testing.mockito
-    testImplementation testing.api
-    testRuntime testing.engine, testing.platformRunner
+dependencies {
+    implementation project(':chapter05:data-jpa')
+    implementation spring_bom.webmvc, hibernate_bom.validator, misc_bom.h2, misc_bom.hikari, misc_bom.jstl
+    implementation  spring_bom.securityWeb, spring_bom.securityTaglibs,spring_bom.securityConfig
+    compileOnly misc_bom.servletApi
+
+    testImplementation testing_bom.api, testing_bom.platformRunner, testing_bom.mockito, spring_bom.test, testing_bom.mockito
+    testImplementation testing_bom.api
+    testRuntimeOnly testing_bom.engine, testing_bom.platformRunner
 }
 
 war {
@@ -24,7 +32,7 @@ war {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 07 - Spring Web Security XML",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

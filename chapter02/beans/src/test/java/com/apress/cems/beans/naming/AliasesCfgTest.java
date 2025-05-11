@@ -29,11 +29,18 @@ package com.apress.cems.beans.naming;
 
 import com.apress.cems.beans.ci.SimpleBean;
 import com.apress.cems.beans.ci.SimpleBeanImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,14 +48,17 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Iuliana Cosmina
  * @since 1.0
  */
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = AliasesCfg.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@Slf4j
 public class AliasesCfgTest {
 
-    private Logger logger = LoggerFactory.getLogger(AliasesCfg.class);
+    @Autowired
+    ApplicationContext ctx;
 
     @Test
     void testSimpleBeans() {
-        var ctx = new AnnotationConfigApplicationContext(AliasesCfg.class);
-
         var simpleBean = ctx.getBean("beanOne", SimpleBean.class);
         assertNotNull(simpleBean);
         assertTrue(simpleBean instanceof SimpleBeanImpl);
@@ -58,7 +68,5 @@ public class AliasesCfgTest {
 
         // no bean named 'simpleBean'
         assertThrows(NoSuchBeanDefinitionException.class, () -> ctx.getBean("simpleBean", SimpleBean.class));
-
-        ctx.close();
     }
 }

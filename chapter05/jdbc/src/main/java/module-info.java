@@ -12,6 +12,7 @@ module com.apress.cems.jdbc {
     requires spring.beans;
     requires spring.core;
     requires spring.jdbc;
+    requires com.oracle.database.jdbc;
     requires java.naming;
     requires java.annotation;
 }

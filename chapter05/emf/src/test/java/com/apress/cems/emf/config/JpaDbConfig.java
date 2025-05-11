@@ -41,14 +41,13 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.orm.jpa.persistenceunit.PersistenceUnitManager;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.io.File;
 import java.util.Properties;
 
 /**
@@ -84,10 +83,9 @@ public class JpaDbConfig {
         Properties hibernateProp = new Properties();
         hibernateProp.put("hibernate.dialect", dialect);
         hibernateProp.put("hibernate.hbm2ddl.auto", hbm2ddl);
-
         hibernateProp.put("hibernate.format_sql", true);
         hibernateProp.put("hibernate.use_sql_comments", true);
-        hibernateProp.put("hibernate.show_sql", true);
+        // hibernateProp.put("hibernate.show_sql", true);
         return hibernateProp;
     }
 
@@ -123,19 +121,6 @@ public class JpaDbConfig {
         factoryBean.setJpaProperties(hibernateProperties());
         factoryBean.afterPropertiesSet();
         return factoryBean.getNativeEntityManagerFactory();
-    }
-
-    //needed because Hibernate does not drop the database as it should
-    @PostConstruct
-    void discardDatabase(){
-        final String currentDir = System.getProperty("user.dir");
-        int start = url.indexOf("./")+ 2;
-        int end = url.indexOf(";", start);
-        String dbName = url.substring(start, end);
-        File one  = new File(currentDir.concat(File.separator).concat(dbName).concat(".mv.db"));
-        one.deleteOnExit();
-        File two  = new File(currentDir.concat(File.separator).concat(dbName).concat(".trace.db"));
-        two.deleteOnExit();
     }
 
 }

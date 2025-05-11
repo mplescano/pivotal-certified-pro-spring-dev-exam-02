@@ -63,8 +63,8 @@ public class ExtraJdbcDetectiveRepo extends JdbcDetectiveRepo {
                 " d.RANK rank," +
                 " d.ARMED armed," +
                 " d.STATUS status" +
-                " from DETECTIVE d, PERSON p where d.PERSON_ID=p.ID and d.ID=" + id;
-        return Optional.of(jdbcTemplate.query(sql, new DetectiveExtractor()));
+                " from DETECTIVE d, PERSON p where d.PERSON_ID=p.ID and d.ID=?";
+        return Optional.of(jdbcTemplate.query(sql, new DetectiveExtractor(), id));
     }
 
     private class DetectiveExtractor implements ResultSetExtractor<Detective> {

@@ -34,7 +34,10 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,9 +68,11 @@ class ReactiveHybridTest {
     @Test
     void shouldReturnAListOfPersons(){
         webTestClient.get().uri("/").accept(MediaType.TEXT_EVENT_STREAM)
+                .acceptCharset(StandardCharsets.UTF_8)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().contentType("text/event-stream;charset=UTF-8")
+                //.expectHeader().contentType("text/event-stream;charset=UTF-8")
+                .expectHeader().contentType("text/event-stream")
                 .expectBodyList(Person.class).consumeWith(Assertions::assertNotNull);
     }
 

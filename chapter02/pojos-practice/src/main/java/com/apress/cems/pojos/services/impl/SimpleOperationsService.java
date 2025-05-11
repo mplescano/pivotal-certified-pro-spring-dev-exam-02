@@ -62,6 +62,7 @@ public class SimpleOperationsService implements OperationsService {
     public CriminalCase createCriminalCase(CaseType caseType, String shortDescription, String badgeNo, Map<Evidence, String> evidenceMap) {
         // get detective
         // TODO 1. retrieve detective  (according to diagram 2.5)
+        Optional<Detective> optDetective = detectiveRepo.findByBadgeNumber(badgeNo);
 
         // create a criminal case instance
         CriminalCase criminalCase = new CriminalCase();

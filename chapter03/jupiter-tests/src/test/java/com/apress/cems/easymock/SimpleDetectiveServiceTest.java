@@ -108,7 +108,7 @@ class SimpleDetectiveServiceTest {
 // To test multiple failures
 assertAll(
                 () -> assertNotNull(detective),
-                () -> assertEquals(2L, detective.getId()),
-                () -> assertEquals("SH2211", detective.getBadgeNumber() )
+                () -> assertEquals(detective.getId(), 2L),
+                () -> assertEquals(detective.getBadgeNumber(), "SH2211")
         );
  */

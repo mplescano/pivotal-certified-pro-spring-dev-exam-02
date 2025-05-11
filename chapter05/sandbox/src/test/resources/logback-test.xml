@@ -16,6 +16,7 @@
     <logger name="org.springframework" level="off"/>
 
     <logger name="org.hibernate" level="off" />
+    <logger name="org.hibernate.SQL" level="debug" />
 
     <logger name="org.h2" level="off"/>
 

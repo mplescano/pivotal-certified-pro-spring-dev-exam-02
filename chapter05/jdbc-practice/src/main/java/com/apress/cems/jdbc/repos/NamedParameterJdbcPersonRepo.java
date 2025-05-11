@@ -141,5 +141,6 @@ public class NamedParameterJdbcPersonRepo implements PersonRepo {
     @Override
     public int deleteById(Long entityId) {
         // add NamedParameterJdbcTemplate instance call to delete a person
-        return 0;    }
+        return jdbcNamedTemplate.update("delete from PERSON where id = :id", Map.of("id", entityId));
+    }
 }

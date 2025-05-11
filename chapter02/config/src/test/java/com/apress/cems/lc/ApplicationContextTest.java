@@ -27,9 +27,8 @@ SOFTWARE.
 */
 package com.apress.cems.lc;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.sql.DataSource;
@@ -41,19 +40,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author Iuliana Cosmina
  * @since 1.0
  */
+@Slf4j
 class ApplicationContextTest {
-    private Logger logger = LoggerFactory.getLogger(ApplicationContextTest.class);
 
     @Test
     void testSimpleBeans() {
         var ctx = new AnnotationConfigApplicationContext(DataSourceCfg.class);
         ctx.registerShutdownHook();
-        logger.info(" >> init done.");
+        log.info(" >> init done.");
 
         var dataSource = ctx.getBean(DataSource.class);
         assertNotNull(dataSource);
 
-        logger.info(" >> usage done.");
+        log.info(" >> usage done.");
     }
 
     @Test

@@ -28,6 +28,7 @@ SOFTWARE.
 package com.apress.cems.sec.controllers;
 
 import com.apress.cems.dao.Detective;
+import com.apress.cems.dao.Person;
 import com.apress.cems.dj.services.DetectiveService;
 import com.apress.cems.dj.services.wrappers.DetectiveWrapper;
 import com.apress.cems.sec.problem.NotFoundException;
@@ -41,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.apress.cems.util.Functions.COMPARATOR_BY_ID;
 

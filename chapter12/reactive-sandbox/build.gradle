@@ -1,15 +1,23 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
 apply plugin: 'war'
+apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.sandbox'
 
-dependencies {
-    implementation misc.projectReactor
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
 
-    testImplementation testing.reactorTest
-    testImplementation (boot.starterTest) {
+dependencies {
+    implementation misc_bom.projectReactor
+
+    testImplementation testing_bom.reactorTest
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
@@ -27,7 +35,7 @@ war {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 12 - Reactive Sandbox",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

@@ -59,8 +59,8 @@ public class SimpleOperationsServiceTest extends SimpleServiceTestBase {
         person.setHiringDate(LocalDateTime.now());
         person.setPassword("123");
         var detective = detectiveService.createDetective(person, Rank.INSPECTOR);
-        assertNotNull(detective);
         detective.setBadgeNumber(BADGE_NO);
+        assertNotNull(detective);
         assertEquals(DETECTIVE_ID, detective.getId());
 
         // create storage entries

@@ -25,11 +25,11 @@ configurations {
 }
 
 dependencies {
-    implementation boot.starterMongoReactive, boot.starterWebflux, boot.actuator
-    developmentOnly boot.devtools
+    implementation boot_bom.starterMongoReactive, boot_bom.starterWebflux, boot_bom.actuator
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    testImplementation testing.reactorTest, testing.mongo
-    testImplementation (boot.starterTest) {
+    testImplementation testing_bom.reactorTest, testing_bom.mongo
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
@@ -52,7 +52,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 12 - Spring Boot Webflux Application - fully reactive with MongoDB",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.reactive.ReactiveApplication",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

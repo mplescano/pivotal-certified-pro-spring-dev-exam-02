@@ -23,7 +23,9 @@ module com.apress.cems.classic.rest {
 
     requires thymeleaf.spring5;
     requires thymeleaf;
+    requires java.validation;
     requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.annotation;
 
     exports com.apress.cems.rest.config;
     exports com.apress.cems.rest.controllers;

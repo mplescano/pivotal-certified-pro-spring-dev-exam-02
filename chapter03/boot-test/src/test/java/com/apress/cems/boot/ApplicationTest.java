@@ -55,4 +55,9 @@ class ApplicationTest {
         assertEquals(2, personService.count());
     }
 
+    @Test
+    void testCount() {
+        assertEquals(1, personService.count());
+    }
+
 }

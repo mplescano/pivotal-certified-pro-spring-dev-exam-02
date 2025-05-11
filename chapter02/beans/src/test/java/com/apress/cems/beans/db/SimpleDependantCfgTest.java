@@ -1,5 +1,4 @@
 /*
->>>>>>> Initial commit
 Freeware License, some rights reserved
 
 Copyright (c) 2019 Iuliana Cosmina
@@ -49,5 +48,8 @@ public class SimpleDependantCfgTest {
 
         var simpleBean = simpleDependantCfg.simpleBean();
         assertNotNull(simpleBean);
+
+        var dependantBean2 = ctx.getBean("dependantBean2", DependantBean.class);
+        assertNotNull(dependantBean2);
     }
 }

@@ -9,6 +9,7 @@ module com.apress.cems.dj {
     requires org.apache.commons.lang3;
     requires java.sql;
     requires org.slf4j;
+    requires com.oracle.database.jdbc;
     requires java.naming;
     requires java.annotation;
 

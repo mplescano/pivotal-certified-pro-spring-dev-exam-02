@@ -55,7 +55,7 @@ import java.util.Locale;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.apress.cems.web.controllers", "com.apress.cems.web.problem"})
-class WebConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     SimpleMappingExceptionResolver simpleMappingExceptionResolver(){

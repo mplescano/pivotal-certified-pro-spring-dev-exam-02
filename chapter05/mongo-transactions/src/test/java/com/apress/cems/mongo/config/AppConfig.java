@@ -27,17 +27,17 @@ SOFTWARE.
 */
 package com.apress.cems.mongo.config;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.context.annotation.*;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
-import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -51,7 +51,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableMongoRepositories(basePackages = "com.apress.cems.mongo.repos")
 @ComponentScan(basePackages = { "com.apress.cems.mongo.services"})
 @PropertySource("classpath:mongo.properties")
-public class AppConfig extends AbstractMongoConfiguration {
+public class AppConfig extends AbstractMongoClientConfiguration {
+
+    private static Logger log = LoggerFactory.getLogger(AppConfig.class);
 
     @Value("${db.name}")
     private String dbName;
@@ -63,13 +65,20 @@ public class AppConfig extends AbstractMongoConfiguration {
     private Integer port;
 
     @Bean
-    PlatformTransactionManager transactionManager(MongoDbFactory dbFactory) {
+    PlatformTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
         return new MongoTransactionManager(dbFactory);
+    }
+
+    @Bean
+    @DependsOn({"mongodExecutable1"})
+    @Primary
+    public MongoDatabaseFactory mongoDbFactory() {
+        return new SimpleMongoClientDatabaseFactory(mongoClient(), getDatabaseName());
     }
 
     @Override
     public MongoClient mongoClient() {
-        return new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017/?replicaSet=rs0"));
+        return MongoClients.create("mongodb://" + host + ":" + port + "/?replicaSet=rs0");
     }
 
     @Override

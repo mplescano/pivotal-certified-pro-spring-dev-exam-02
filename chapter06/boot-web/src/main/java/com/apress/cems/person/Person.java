@@ -161,7 +161,7 @@ public class Person {
     @Override
     public String toString() {
         return String.format("Person[username='%s', firstName='%s', lastName='%s', hiringDate='%s']\n",
-                username, firstName, lastName, hiringDate.toString());
+                username, firstName, lastName, hiringDate);
 
     }
 

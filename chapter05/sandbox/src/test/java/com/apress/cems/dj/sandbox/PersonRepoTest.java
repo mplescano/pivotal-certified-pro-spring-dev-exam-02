@@ -60,4 +60,11 @@ class PersonRepoTest {
         );
     }
 
+    @Test
+    void testFindByNegativeId() {
+        personRepo.findById(-999L).ifPresentOrElse(
+                p -> assertEquals("sherlock.holmes", p.getUsername()),
+                () -> fail("Person not found!")
+        );
+    }
 }

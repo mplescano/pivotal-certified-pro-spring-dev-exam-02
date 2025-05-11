@@ -27,7 +27,6 @@ SOFTWARE.
 */
 package com.apress.cems.emf.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -37,7 +36,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @since 1.0
  */
 @Configuration
-@ComponentScan(basePackages = {"com.apress.cems.emf.services", "com.apress.cems.emf.repos"})
+@ComponentScan(basePackages = {"com.apress.cems.emf.services", "com.apress.cems.emf.repos",
+        "com.apress.cems.emf.component"})
 @EnableTransactionManagement
 public class AppConfig {
 

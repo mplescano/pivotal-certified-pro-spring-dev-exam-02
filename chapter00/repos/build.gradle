@@ -1,17 +1,23 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.repos'
 
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
 dependencies {
-    compile project(':chapter00:dao')
-
-    compile misc.lang3, misc.ojdbc, misc.slf4j, spring.jdbc, spring.contextSupport
-
-    compile (misc.logback) {
+    implementation project(':chapter00:dao')
+    implementation misc_bom.lang3, misc_bom.slf4j, spring_bom.jdbc, spring_bom.contextSupport
+    implementation (misc_bom.logback) {
         exclude group: "javax.activation", module: "activation"
-        exclude group: "edu.washington.cs.types.checker", module: "checker-framework"
     }
 }
 
@@ -21,7 +27,7 @@ jar {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 00 - Repos",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

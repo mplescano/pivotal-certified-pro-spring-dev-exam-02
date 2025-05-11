@@ -29,7 +29,12 @@ package com.apress.cems.beans.fi;
 
 import com.apress.cems.beans.ci.ComposedBean;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,15 +42,19 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Iuliana Cosmina
  * @since 1.0
  */
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = FiAppCfg.class)
 public class FiAppCfgTest {
+
+    @Autowired
+    ApplicationContext ctx;
+
     @Test
     void testSimpleBeans() {
-        var ctx = new AnnotationConfigApplicationContext(FiAppCfg.class);
         var composedBean = ctx.getBean(ComposedBean.class);
         assertNotNull(composedBean);
         assertNotNull(composedBean.getSimpleBean());
         assertEquals("AB123", composedBean.getCode());
         assertTrue(composedBean.isComplicated());
-        ctx.close();
     }
 }

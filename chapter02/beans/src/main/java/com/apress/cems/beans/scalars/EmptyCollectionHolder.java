@@ -49,17 +49,20 @@ public class EmptyCollectionHolder {
 
     private Map<String, SimpleBean> simpleBeanMap;
 
-    @Autowired @Qualifier("simpleBeanList")
+    @Autowired
+    @Qualifier("simpleBeanList")
     public void setSimpleBeanList(List<SimpleBean> simpleBeanList) {
         this.simpleBeanList = simpleBeanList;
     }
 
-    @Autowired @Qualifier("simpleBeanSet")
+    @Autowired
+    @Qualifier("simpleBeanSet")
     public void setSimpleBeanSet(Set<SimpleBean> simpleBeanSet) {
         this.simpleBeanSet = simpleBeanSet;
     }
 
-    @Autowired @Qualifier("simpleBeanMap")
+    @Autowired
+    @Qualifier("simpleBeanMap")
     public void setSimpleBeanMap(Map<String, SimpleBean> simpleBeanMap) {
         this.simpleBeanMap = simpleBeanMap;
     }

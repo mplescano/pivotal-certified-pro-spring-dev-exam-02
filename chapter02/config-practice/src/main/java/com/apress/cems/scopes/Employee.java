@@ -27,8 +27,11 @@ SOFTWARE.
 */
 package com.apress.cems.scopes;
 
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.inject.Provider;
 
 /**
  * @author Iuliana Cosmina
@@ -36,18 +39,38 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Employee {
-    private Salary salary;
 
-    public Employee(Salary salary) {
-        this.salary = salary;
+    // private Provider<ISalary> providerSalary;
+    private ObjectFactory<ISalary> factorySalary;
+    // private ISalary salary;
+
+    public Employee() {
     }
+
+    /*@Autowired
+    public void setProviderSalary(Provider<ISalary> providerSalary) {
+        this.providerSalary = providerSalary;
+    }
+
+    public ISalary getSalary() {
+        return providerSalary.get();
+    }*/
 
     @Autowired
-    public void setSalary(Salary salary) {
+    public void setFactorySalary(ObjectFactory<ISalary> factorySalary) {
+        this.factorySalary = factorySalary;
+    }
+
+    public ISalary getSalary() {
+        return this.factorySalary.getObject();
+    }
+
+    /*@Autowired
+    public void setSalary(ISalary salary) {
         this.salary = salary;
     }
 
-    public Salary getSalary() {
+    public ISalary getSalary() {
         return salary;
-    }
+    }*/
 }

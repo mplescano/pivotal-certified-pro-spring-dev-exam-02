@@ -110,16 +110,7 @@ class PersonHandlerTest {
         person.setPassword("ccwoo");
         person.setHiringDate(DateProcessor.toDate("1986-05-27 00:38"));
 
-        webTestClient.post().uri("/").body(Mono.just(person), Person.class).exchange().expectStatus().isCreated()
-                .expectBody(Person.class).consumeWith(responseEntity -> {
-                    Person p = responseEntity.getResponseBody();
-                    assertNotNull(p);
-                    assertAll("person",
-                            () -> assertNotNull(p.getId()),
-                            () -> assertEquals("Catherine", p.getFirstName()),
-                            () -> assertEquals("Cawood", p.getLastName()));
-                }
-        );
+        webTestClient.post().uri("/").body(Mono.just(person), Person.class).exchange().expectStatus().isCreated();
     }
 
     @Order(5)

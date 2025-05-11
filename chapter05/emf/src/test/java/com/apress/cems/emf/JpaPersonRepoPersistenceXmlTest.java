@@ -25,50 +25,55 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.apress.cems.practice.boot;
+package com.apress.cems.emf;
 
-import org.junit.jupiter.api.Disabled;
+import com.apress.cems.dao.Person;
+import com.apress.cems.emf.config.AppConfig;
+import com.apress.cems.emf.config.JpaDbPersistenceXmlConfig;
+import com.apress.cems.repos.PersonRepo;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
-import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class SpringBootWebApplication3Test {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {JpaDbPersistenceXmlConfig.class, AppConfig.class})
+@Transactional
+class JpaPersonRepoPersistenceXmlTest {
 
-    @LocalServerPort
-    private Integer port;
+    @Autowired
+    @Qualifier("jpaPersonRepo")
+    PersonRepo personRepo;
 
     @Test
-    void testList() throws Exception {
-              String responseStr =   given().baseUri("http://localhost")
-                .port(port).when().get("/persons/list")
-                .then()
-                .assertThat().statusCode(HttpStatus.OK.value())
-                .extract().body().asString();
-
-              assertAll(
-                      () -> assertTrue(responseStr.contains("div class=\"persons\"")),
-                      () -> assertTrue(responseStr.contains("sherlock.holmes")),
-                      () -> assertTrue(responseStr.contains("nancy.drew"))
-              );
+    void testFindById() {
+        personRepo.findById(1L).ifPresentOrElse(
+                p -> assertEquals("sherlock.holmes", p.getUsername()),
+                () -> fail("Person not found!")
+        );
     }
 
     @Test
-    void testShow() throws Exception {
-        // TODO 50. Write a test to check that checks that requesting "/persons/1" generates the appropriate response
+    void testFindAllByLastName() {
+        List<Person> persons = personRepo.findAllByLastName("Holmes");
+        assertEquals(1,persons.size());
     }
 
     @Test
-    void testError() throws Exception {
-        // TODO 51. Write a test to check that checks that requesting "/persons/99" generates the appropriate response
+    void testNativeQuery(){
+        List<String> usernames = personRepo.findAllUsernames();
+        assertEquals(2,usernames.size());
     }
 }

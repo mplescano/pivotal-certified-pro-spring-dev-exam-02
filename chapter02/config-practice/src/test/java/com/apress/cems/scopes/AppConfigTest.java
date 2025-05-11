@@ -27,34 +27,52 @@ SOFTWARE.
 */
 package com.apress.cems.scopes;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = AppConfig.class)
+@Slf4j
 public class AppConfigTest {
-    private Logger logger = LoggerFactory.getLogger(AppConfigTest.class);
+
+    @Autowired
+    ApplicationContext ctx;
 
     @Test
     void testBeanLifecycle() {
-        var ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        ctx.registerShutdownHook();
-
-        var employee = ctx.getBean(Employee.class);
+        var employee = ctx.getBean("employee", Employee.class);
         assertNotNull(employee);
 
         var salary = employee.getSalary();
-        logger.info("Salary bean actual type: {}", salary.getClass().toString());
+        log.info("Salary bean actual type: {}", salary);
+        log.info("Salary: {}", salary.getAmount());
+        salary = employee.getSalary();
+        log.info("Salary bean actual type: {}", salary);
+        log.info("Salary: {}", salary.getAmount());
 
-        logger.info("Salary: {}", salary.getAmount());
-        logger.info("Salary: {}", salary.getAmount());
-        logger.info("Salary: {}", salary.getAmount());
+        employee = ctx.getBean("employee2", Employee.class);
+        assertNotNull(employee);
 
+        salary = employee.getSalary();
+        log.info("Salary bean actual type: {}", salary);
+        log.info("Salary: {}", salary.getAmount());
+
+        salary = employee.getSalary();
+        log.info("Salary bean actual type: {}", salary);
+        log.info("Salary: {}", salary.getAmount());
     }
 }

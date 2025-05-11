@@ -18,10 +18,10 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-    compile project(':chapter11:entities')
-    implementation boot.starterWeb, boot.actuator,boot.starterJpa
-    implementation cloud.cloudStarter, cloud.eurekaClient, spring.jdbc, misc.jaxbApi
-    runtimeOnly misc.h2
+    implementation project(':chapter11:entities')
+    implementation boot_bom.starterWeb, boot_bom.actuator, boot_bom.starterJpa
+    implementation cloud_bom.cloudStarter, cloud_bom.eurekaClient, spring_bom.jdbc, misc_bom.jaxbApi
+    runtimeOnly misc_bom.h2
 }
 
 dependencyManagement {
@@ -46,7 +46,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 09 - Spring Boot REST",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.person.PersonsServer",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

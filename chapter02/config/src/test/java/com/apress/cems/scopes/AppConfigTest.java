@@ -25,30 +25,45 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.apress.cems.jupiter.cfg.repos;
+package com.apress.cems.scopes;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.sql.DataSource;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@Configuration
-    @ComponentScan(basePackages = {"com.apress.cems.repos"})
-    public class ReposConfig {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = AppConfig.class)
+@Slf4j
+public class AppConfigTest {
 
-        @Autowired
-        DataSource dataSource;
+    @Autowired
+    ApplicationContext ctx;
 
-        @Bean
-        public JdbcTemplate userJdbcTemplate() {
-            return new JdbcTemplate(dataSource);
-        }
+    @Test
+    void testBeanLifecycle() {
+        var employee = ctx.getBean(Employee.class);
+        assertNotNull(employee);
 
+        var salary = employee.getSalary();
+        assertNotNull(salary);
+        log.info("Salary bean actual type: {}", salary.getClass().toString());
+
+        log.info("Salary: {}", salary.getAmount());
+        log.info("Salary: {}", salary.getAmount());
+        log.info("Salary: {}", salary.getAmount());
+
+    }
 }

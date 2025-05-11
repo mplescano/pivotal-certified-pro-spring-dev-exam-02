@@ -51,6 +51,9 @@ import java.util.Objects;
         @NamedQuery(name = Person.FIND_BY_LAST_NAME, query = "from Person p where p.lastName= ?1")
 })
 @JsonIgnoreProperties(value="password", allowSetters = true)
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"firstName", "lastName", "hiringDate"})
+})
 public class Person extends AbstractEntity {
     public static final String FIND_BY_COMPLETE_NAME = "findByCompleteName";
     public static final String FIND_BY_LAST_NAME = "findAllByLastName";

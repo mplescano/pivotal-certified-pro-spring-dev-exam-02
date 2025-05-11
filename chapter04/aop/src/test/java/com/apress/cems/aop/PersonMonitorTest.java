@@ -36,6 +36,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -56,7 +57,12 @@ class PersonMonitorTest {
     PersonRepo personRepo;
 
     @Autowired
+    @Qualifier("personServiceImpl")
     PersonService personService;
+
+    @Autowired
+    @Qualifier("badPersonServiceImpl")
+    PersonService badPersonService;
 
     @Test
     void testFindById() {
@@ -76,6 +82,11 @@ class PersonMonitorTest {
     @Test
     void testFindAll() {
         assertNotNull(personService.findAll());
+    }
+
+    @Test
+    void testBadFindAll() {
+        assertThrows(RuntimeException.class, () -> badPersonService.findAll());
     }
 
     @Test

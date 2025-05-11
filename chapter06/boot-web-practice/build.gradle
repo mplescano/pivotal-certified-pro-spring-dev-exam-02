@@ -20,12 +20,14 @@ apply plugin: 'io.spring.dependency-management'
 ext.moduleName = 'com.apress.cems.boot'
 
 dependencies {
-    compile boot.starterJpa, boot.starterThymeleaf, boot.starterWeb
-    runtimeOnly misc.h2
-    implementation boot.actuator
+    implementation boot_bom.starterJpa, boot_bom.starterThymeleaf, boot_bom.starterWeb, "org.springframework.boot:spring-boot-starter-validation"
+    runtimeOnly misc_bom.h2
+    implementation boot_bom.actuator
 
-    testImplementation testing.restAssured, testing.restAssuredAll
-    testImplementation (boot.starterTest) {
+    testImplementation (testing_bom.restAssured) {
+        exclude group: "com.sun.xml.bind", module: "jaxb-osgi"
+    }
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
@@ -48,7 +50,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 06 - Spring Boot Web Practice",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.SpringBootWebApplication",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

@@ -27,8 +27,9 @@ SOFTWARE.
 */
 package com.apress.cems.repos;
 
-import com.apress.cems.jupiter.cfg.AllConfig;
-import com.apress.cems.jupiter.cfg.TestDbConfig;
+import com.apress.cems.cfg.AllConfig;
+import com.apress.cems.cfg.TestDbConfig;
+import com.apress.cems.dao.Person;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

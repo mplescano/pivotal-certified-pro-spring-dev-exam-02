@@ -46,7 +46,8 @@ class ApplicationContextTest {
     void testDataSource() {
         var ctx = new ClassPathXmlApplicationContext("classpath:spring/application-cfg-prod.xml");
         assertNotNull(ctx);
-        var dataSource = ctx.getBean("dataSource", DataSource.class);
+        //var dataSource = ctx.getBean("dataSource", DataSource.class);
+        var dataSource = ctx.getBean(DataSource.class);
         assertNotNull(dataSource);
         ctx.registerShutdownHook();
     }

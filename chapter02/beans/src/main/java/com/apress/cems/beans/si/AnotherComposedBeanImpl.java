@@ -32,6 +32,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.beans.ConstructorProperties;
+
 /**
  * @author Iuliana Cosmina
  * @since 1.0
@@ -43,7 +45,12 @@ public class AnotherComposedBeanImpl implements AnotherComposedBean {
 
     private Boolean complex;
 
+    public AnotherComposedBeanImpl() {
+        this.complex = Boolean.FALSE;
+    }
+
     @Autowired
+    @ConstructorProperties({"complex"})
     public AnotherComposedBeanImpl(@Value("true") Boolean complex) {
         this.complex = complex;
     }

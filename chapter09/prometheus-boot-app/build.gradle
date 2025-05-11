@@ -18,11 +18,13 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-    implementation boot.starterJpa, boot.starterWeb, boot.actuator, boot.prometheus
-    runtimeOnly misc.h2
+    implementation boot_bom.starterJpa, boot_bom.starterWeb, boot_bom.actuator, boot_bom.prometheus, "org.springframework.boot:spring-boot-starter-validation"
+    runtimeOnly misc_bom.h2
 
-    testImplementation testing.restAssured, testing.restAssuredAll
-    testImplementation (boot.starterTest) {
+    testImplementation (testing_bom.restAssured) {
+        exclude group: "com.sun.xml.bind", module: "jaxb-osgi"
+    }
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
@@ -45,7 +47,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 09 - Spring Boot REST",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.PrometheusApplication",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

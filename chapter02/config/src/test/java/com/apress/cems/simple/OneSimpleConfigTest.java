@@ -60,5 +60,6 @@ class OneSimpleConfigTest {
         var simpleBeanOne = ctx.getBean(SimpleBean.class);
         var simpleBeanTwo = ctx.getBean(SimpleBean.class);
         Assertions.assertEquals(simpleBeanTwo, simpleBeanOne);
+        logger.info("Bean class:" + simpleBeanTwo.getClass());
     }
 }

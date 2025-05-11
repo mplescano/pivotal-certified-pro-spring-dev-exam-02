@@ -26,6 +26,7 @@ module com.apress.cems.sec.practice {
     requires java.validation;
     requires spring.security.web;
     requires spring.security.config;
+    requires spring.security.crypto;
     requires spring.security.core;
     requires thymeleaf.extras.springsecurity5;
 

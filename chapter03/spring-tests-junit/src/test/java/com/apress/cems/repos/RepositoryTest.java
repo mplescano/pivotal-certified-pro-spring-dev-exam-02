@@ -27,8 +27,9 @@ SOFTWARE.
 */
 package com.apress.cems.repos;
 
-import com.apress.cems.junit.cfg.TestDbConfig;
-import com.apress.cems.junit.cfg.repos.ReposConfig;
+import com.apress.cems.cfg.TestDbConfig;
+import com.apress.cems.cfg.repos.ReposConfig;
+import com.apress.cems.dao.Person;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +37,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Set;
 
 import static org.junit.Assert.*;
 

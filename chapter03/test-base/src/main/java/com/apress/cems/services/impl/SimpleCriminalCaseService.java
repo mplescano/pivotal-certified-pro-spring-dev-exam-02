@@ -48,7 +48,9 @@ public class SimpleCriminalCaseService extends SimpleAbstractService<CriminalCas
     private CriminalCaseRepo repo;
 
     @Override
-    public CriminalCase createCriminalCase(CaseType type, String shortDescription, String detailedDescription, CaseStatus caseStatus, String notes, Set<Evidence> evidenceSet, Detective leadInvestigator) {
+    public CriminalCase createCriminalCase(CaseType type, String shortDescription, String detailedDescription,
+                                           CaseStatus caseStatus, String notes, Set<Evidence> evidenceSet,
+                                           Detective leadInvestigator) {
         var criminalCase = new CriminalCase();
         criminalCase.setType(type);
         criminalCase.setShortDescription(shortDescription);
@@ -57,7 +59,8 @@ public class SimpleCriminalCaseService extends SimpleAbstractService<CriminalCas
         criminalCase.setNotes(notes);
         criminalCase.setEvidenceSet(evidenceSet);
         criminalCase.setLeadInvestigator(leadInvestigator);
-        repo.save(criminalCase);
+        //repo.save(criminalCase);
+        save(criminalCase);
         return criminalCase;
     }
 

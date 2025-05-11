@@ -27,6 +27,7 @@ module com.apress.cems.sec.thymeleaf {
     requires spring.security.web;
     requires spring.security.config;
     requires spring.security.core;
+    requires spring.security.crypto;
     requires thymeleaf.extras.springsecurity5;
 
     exports com.apress.cems.sec.config;

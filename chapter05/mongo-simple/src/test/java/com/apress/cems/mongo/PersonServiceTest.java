@@ -28,6 +28,7 @@ SOFTWARE.
 package com.apress.cems.mongo;
 
 import com.apress.cems.mongo.config.AppConfig;
+import com.apress.cems.mongo.config.MongoDbServerConfig;
 import com.apress.cems.mongo.dao.Person;
 import com.apress.cems.mongo.services.PersonService;
 import org.junit.jupiter.api.AfterEach;
@@ -52,7 +53,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { AppConfig.class})
+@ContextConfiguration(classes = { MongoDbServerConfig.class, AppConfig.class})
 @Disabled
 class PersonServiceTest {
 

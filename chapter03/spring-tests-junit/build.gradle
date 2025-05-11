@@ -1,17 +1,26 @@
 plugins {
     id 'java-library'
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.spring.junit.tests'
 
-dependencies {
-    compile project(':chapter00:dao')
-    compile project(':chapter00:repos')
-    compile project(':chapter03:test-base')
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
 
-    testCompile testing.junit, spring.test, testing.mockitoAll
-    testImplementation spring.test
-    testRuntime testing.vintageEngine
+dependencies {
+    implementation project(':chapter00:dao')
+    implementation project(':chapter00:repos')
+    implementation project(':chapter03:test-base')
+
+    testImplementation testing_bom.vintageEngine, spring_bom.test, testing_bom.mockitoAll
+    testImplementation spring_bom.test
+    testRuntimeOnly testing_bom.vintageEngine
 }
 
 jar {
@@ -20,7 +29,7 @@ jar {
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 03 - Spring JUnit 4 Tests",
                 "Implementation-Version": archiveVersion,
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

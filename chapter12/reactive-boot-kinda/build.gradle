@@ -19,11 +19,11 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     implementation project(':chapter11:entities')
-    implementation boot.starterJpa, boot.starterWebflux, boot.actuator
-    runtimeOnly misc.h2
+    implementation boot_bom.starterJpa, boot_bom.starterWebflux, boot_bom.actuator
+    runtimeOnly misc_bom.h2
 
-    testImplementation testing.reactorTest
-    testImplementation (boot.starterTest) {
+    testImplementation testing_bom.reactorTest
+    testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
@@ -46,7 +46,7 @@ jar {
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 12 - Spring Boot Webflux Application - not totally reactive - using router functions",
                 "Implementation-Version": archiveVersion,
                 "Main-Class"         : "com.apress.cems.reactive.ReactiveApplication",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }

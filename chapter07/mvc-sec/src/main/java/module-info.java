@@ -19,6 +19,7 @@ module com.apress.cems.sec {
     requires java.annotation;
     requires com.zaxxer.hikari;
     requires spring.beans;
+    requires spring.security.crypto;
     requires java.sql;
 
     requires spring.security.core;
