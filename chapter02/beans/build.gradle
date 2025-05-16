@@ -1,34 +1,20 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.beans'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id 'chapter02-conventions'
 }
 
 dependencies {
-    /*compileOnly misc_bom.lombok
+    compileOnly misc_bom.lombok
     annotationProcessor misc_bom.lombok
 
     testCompileOnly misc_bom.lombok
-    testAnnotationProcessor misc_bom.lombok*/
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
-
-    testCompileOnly 'org.projectlombok:lombok:1.18.20'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor misc_bom.lombok
 
     testImplementation spring_bom.test
 }
 
 jar {
+    archiveBaseName = "$moduleName"
     manifest {
         attributes(
                 "Created-By": System.getProperty('java.version'),

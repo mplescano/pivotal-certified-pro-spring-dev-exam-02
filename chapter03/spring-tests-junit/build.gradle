@@ -1,23 +1,16 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
+    id "chapter03-conventions"
 }
-
-apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.spring.junit.tests'
 
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
-}
-
 dependencies {
-    implementation project(':chapter00:dao')
-    implementation project(':chapter00:repos')
-    implementation project(':chapter03:test-base')
+    implementation project(':chapter00.dao')
+    implementation project(':chapter00.repos')
+    implementation project(':chapter03.test-base')
 
+    testImplementation project(':chapter00.repos')
     testImplementation testing_bom.vintageEngine, spring_bom.test, testing_bom.mockitoAll
     testImplementation spring_bom.test
     testRuntimeOnly testing_bom.vintageEngine

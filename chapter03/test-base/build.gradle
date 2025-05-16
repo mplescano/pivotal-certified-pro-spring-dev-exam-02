@@ -1,24 +1,16 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.test.base'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id 'basic-conventions'
+    id "chapter03-conventions"
 }
 
 dependencies {
-    api project(':chapter00:repos')
+    api project(':chapter00.repos')
 }
 
 jar {
     manifest {
+        archiveBaseName = "$moduleName"
         attributes(
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 03 - Test Base classes",

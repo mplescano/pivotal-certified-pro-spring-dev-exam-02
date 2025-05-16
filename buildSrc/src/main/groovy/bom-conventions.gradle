@@ -1,0 +1,18 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform(boot.bom)
+    annotationProcessor platform(boot.bom)
+    testAnnotationProcessor platform(boot.bom)
+    implementation platform(cloud.bom)
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+    }
+}

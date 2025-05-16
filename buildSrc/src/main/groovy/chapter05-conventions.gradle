@@ -1,0 +1,21 @@
+plugins {
+    id 'basic-conventions'
+    id 'bom-conventions'
+}
+
+dependencies {
+    implementation project(':chapter00.dao')
+    implementation misc_bom.lang3, misc_bom.slf4j, misc_bom.jsr250
+    implementation (misc_bom.ojdbc) {
+        exclude group: "com.oracle.database.jdbc", module: "ucp"
+    }
+    implementation (misc_bom.logback) {
+        exclude group: "javax.activation", module: "activation"
+    }
+    compileOnly misc_bom.lombok
+    annotationProcessor misc_bom.lombok
+
+    testCompileOnly misc_bom.lombok
+    testAnnotationProcessor misc_bom.lombok
+    testImplementation misc_bom.h2
+}

@@ -11,4 +11,7 @@ module com.apress.cems.spring.tests.practice {
     requires spring.core;
     requires spring.jdbc;
     requires java.annotation;
+
+    requires com.apress.cems.repos;
+    requires  com.apress.cems.test.base;
 }

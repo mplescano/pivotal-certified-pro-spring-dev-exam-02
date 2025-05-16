@@ -1,26 +1,13 @@
-buildscript {
-    def springRepo = 'https://repo.spring.io'
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "$springRepo/release" }
-        maven { url "$springRepo/snapshot" }
-        maven { url "$springRepo/milestone" }
-    }
-
-    dependencies {
-        classpath boot.springBootPlugin
-    }
+plugins {
+    id 'java-library'
+    id 'bom-conventions'
 }
-
-apply plugin: 'java-library'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.boot'
 
 dependencies {
-    implementation boot_bom.starterSecurity, boot_bom.starterJpa, boot_bom.starterThymeleaf, boot_bom.starterWeb, misc_bom.thymeleafSecurity, "org.springframework.boot:spring-boot-starter-validation"
+    implementation boot_bom.starterSecurity, boot_bom.starterJpa, boot_bom.starterThymeleaf, boot_bom.starterWeb,
+            misc_bom.thymeleafSecurity, "org.springframework.boot:spring-boot-starter-validation"
     runtimeOnly misc_bom.h2
     implementation boot_bom.actuator
 
@@ -31,14 +18,6 @@ dependencies {
     testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
-    }
-}
-
-test {
-    useJUnitPlatform()
-
-    testLogging {
-        events 'PASSED', 'FAILED', 'SKIPPED'
     }
 }
 

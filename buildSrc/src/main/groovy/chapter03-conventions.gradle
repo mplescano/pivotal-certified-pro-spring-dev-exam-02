@@ -1,0 +1,15 @@
+plugins {
+    //id 'basic-conventions'
+    id 'bom-conventions'
+}
+
+dependencies {
+    implementation project(':chapter00.dao')
+    implementation misc_bom.lang3, misc_bom.slf4j, misc_bom.jsr250, misc_bom.h2
+    implementation (misc_bom.ojdbc) {
+        exclude group: "com.oracle.database.jdbc", module: "ucp"
+    }
+    implementation (misc_bom.logback) {
+        exclude group: "javax.activation", module: "activation"
+    }
+}

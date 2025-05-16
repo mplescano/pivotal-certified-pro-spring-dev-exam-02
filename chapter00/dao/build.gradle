@@ -1,23 +1,6 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-}
-
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.dao'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id 'chapter00-conventions'
 }
 
 dependencies {
@@ -25,6 +8,7 @@ dependencies {
 }
 
 jar {
+    archiveBaseName = "$moduleName"
     manifest {
         attributes(
                 "Created-By": System.getProperty('java.version'),

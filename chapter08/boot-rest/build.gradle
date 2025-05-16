@@ -1,21 +1,7 @@
-buildscript {
-    def springRepo = 'https://repo.spring.io'
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "$springRepo/release" }
-        maven { url "$springRepo/snapshot" }
-        maven { url "$springRepo/milestone" }
-    }
-
-    dependencies {
-        classpath boot.springBootPlugin
-    }
+plugins {
+    id 'java-library'
+    id 'bom-conventions'
 }
-
-apply plugin: 'java-library'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.rest.practice'
 
@@ -33,14 +19,6 @@ dependencies {
     }
 }
 
-test {
-    useJUnitPlatform()
-
-    testLogging {
-        events 'PASSED', 'FAILED', 'SKIPPED'
-    }
-}
-
 // decomment this after leaving a single main class to build jar
 jar {
     archiveBaseName = "boot-rest"
@@ -54,4 +32,3 @@ jar {
         )
     }
 }
-

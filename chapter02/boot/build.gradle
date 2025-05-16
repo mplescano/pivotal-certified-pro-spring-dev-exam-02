@@ -1,26 +1,13 @@
-buildscript {
-    def springRepo = 'https://repo.spring.io'
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "$springRepo/release" }
-        maven { url "$springRepo/snapshot" }
-        maven { url "$springRepo/milestone" }
-    }
-
-    dependencies {
-        classpath boot.springBootPlugin
-    }
+plugins {
+    id 'java-library'
+    id 'bom-conventions'
+    id "org.springframework.boot" version "$springBootVersion"
 }
-
-apply plugin: 'java-library'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.boot'
 
 dependencies {
-    api boot_bom.starterWeb
+    implementation boot_bom.starterWeb
     implementation boot_bom.actuator
     testImplementation boot_bom.starterTest
 }

@@ -1,29 +1,14 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.jupiter'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id "chapter03-conventions"
 }
 
 dependencies {
-    api project(':chapter03:test-base')
+    api project(':chapter03.test-base')
 
     testImplementation testing_bom.api, testing_misc.easymock, testing_misc.jmockju5, testing_bom.platformRunner, testing_bom.mockito
     testRuntimeOnly testing_bom.engine, testing_bom.platformRunner
 }
-
-test {
-    useJUnitPlatform()
-}
-
 
 jar {
     manifest {

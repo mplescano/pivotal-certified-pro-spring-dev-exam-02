@@ -1,26 +1,9 @@
-buildscript {
-    def springRepo = 'https://repo.spring.io'
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "$springRepo/release" }
-        maven { url "$springRepo/snapshot" }
-        maven { url "$springRepo/milestone" }
-    }
-
-    dependencies {
-        classpath boot.springBootPlugin
-    }
+plugins {
+    id 'java-library'
+    id "bom-conventions"
 }
 
-apply plugin: 'java-library'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
 ext.moduleName = 'com.apress.cems.boot.test'
-
-//override any Spring Boot configurations, so Gradle build can pick up the tests
-//ext['junit-jupiter.version'] = "5.5.0-M1"
 
 dependencies {
     implementation boot_bom.starterWeb, boot_bom.starterJpa, misc_bom.lang3

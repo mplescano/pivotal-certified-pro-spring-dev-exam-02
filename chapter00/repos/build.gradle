@@ -1,27 +1,18 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.repos'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id 'chapter00-conventions'
 }
 
 dependencies {
-    implementation project(':chapter00:dao')
-    implementation misc_bom.lang3, misc_bom.slf4j, spring_bom.jdbc, spring_bom.contextSupport
+    implementation project(':chapter00.dao')
+    api misc_bom.lang3, misc_bom.slf4j, spring_bom.jdbc, spring_bom.contextSupport
     implementation (misc_bom.logback) {
         exclude group: "javax.activation", module: "activation"
     }
 }
 
 jar {
+    archiveBaseName = "$moduleName"
     manifest {
         attributes(
                 "Created-By": System.getProperty('java.version'),

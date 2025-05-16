@@ -1,22 +1,13 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.spring.profiles.tests'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id "basic-conventions"
+    id "chapter03-conventions"
 }
 
 dependencies {
-    implementation project(':chapter00:dao')
-    implementation project(':chapter00:repos')
-    implementation project(':chapter03:test-base')
+    //implementation project(':chapter00:dao')
+    implementation project(':chapter00.repos')
+    implementation project(':chapter03.test-base')
     implementation (misc_bom.ojdbc) {
         exclude group: "com.oracle.database.jdbc", module: "ucp"
     }
@@ -28,6 +19,7 @@ dependencies {
 
 jar {
     manifest {
+        archiveBaseName = "$moduleName"
         attributes(
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 03 - Spring Profiles Tests",

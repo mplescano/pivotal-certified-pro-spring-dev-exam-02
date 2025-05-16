@@ -1,25 +1,30 @@
-plugins {
-    id 'java'
-}
+/*plugins {*/
+    /*id 'java'*/
+    //id 'org.javamodularity.moduleplugin' version '1.8.15' apply false
+/*}*/
 
 allprojects {
+    apply plugin: 'java'
     group 'com.apress.cems'
     version '2.0-SNAPSHOT'
 }
 
-subprojects {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "https://repo.spring.io/snapshot/" }
-        maven { url "https://repo.spring.io/milestone" }
-        maven { url "https://plugins.gradle.org/m2/" }
+/*subprojects {*/
+    /*repositories {*/
+        /*mavenLocal()*/
+        /*mavenCentral()*/
+        /*maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }*/
+        /*maven { url "https://repo.spring.io/snapshot/" }*/
+        /*maven { url "https://repo.spring.io/milestone" }*/
+        /*maven { url "https://plugins.gradle.org/m2/" }*/
         /*maven {url "https://projectlombok.org/edge-releases"}*/
-    }
-}
+    /*}*/
+/*}*/
 
-java.sourceCompatibility = JavaVersion.VERSION_12
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 
 ext {
     springBootVersion = '2.7.5'
@@ -40,7 +45,8 @@ ext {
 
     //we group libraries by their purpose so we can import them easier in the modules
     boot = [
-            springBootPlugin: "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+            springBootPlugin: "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion",
+            bom: "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
     ]
 
     boot_bom = [
@@ -154,15 +160,15 @@ ext {
     ]
 }
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    maven { url "https://repo.spring.io/snapshot/" }
-    maven { url "https://repo.spring.io/milestone" }
-    maven { url "https://plugins.gradle.org/m2/" }
+/*repositories {*/
+    /*mavenLocal()*/
+    /*mavenCentral()*/
+    /*maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }*/
+    /*maven { url "https://repo.spring.io/snapshot/" }*/
+    /*maven { url "https://repo.spring.io/milestone" }*/
+    /*maven { url "https://plugins.gradle.org/m2/" }*/
     /*maven {url "https://projectlombok.org/edge-releases"}*/
-}
+/*}*/
 
 task allDeps {
     doLast {

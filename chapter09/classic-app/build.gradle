@@ -1,17 +1,11 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
+    id "chapter09-conventions"
 }
+
 apply plugin: 'war'
-apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.classic.app'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
-}
 
 dependencies {
     api spring_bom.webmvc, spring_bom.data, misc_bom.h2, misc_bom.hikari, misc_bom.jacksonDatabind, misc_bom.jacksonJsr310

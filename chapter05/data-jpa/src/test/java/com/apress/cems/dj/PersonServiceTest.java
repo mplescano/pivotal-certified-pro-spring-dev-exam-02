@@ -28,13 +28,13 @@ SOFTWARE.
 package com.apress.cems.dj;
 
 import com.apress.cems.dj.config.DataSourceConfig;
-import com.apress.cems.dj.services.DetectiveService;
-import com.apress.cems.dj.services.PersonService;
+import com.apress.cems.dj.services.*;
 
-import com.apress.cems.dj.services.StorageService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -49,7 +49,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, ServiceConfig.class})
+@ContextConfiguration(classes = {DataSourceConfig.class, ServiceConfig.class, PersonServiceTest.Config.class})
  class PersonServiceTest {
 
     @Autowired
@@ -60,6 +60,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 
     @Autowired
     DetectiveService detectiveService;
+
+    @Configuration
+    static class Config {
+        @Bean
+        public Initializer initializer(PersonService personService, DetectiveService detectiveService,
+                                       CriminalCaseService criminalCaseService, StorageService storageService) {
+            return new Initializer(personService, detectiveService, criminalCaseService, storageService);
+        }
+    }
 
     @Test
     void testFindById() {
@@ -81,5 +90,6 @@ import static org.junit.jupiter.api.Assertions.fail;
     void testFindAll() {
         assertNotNull(personService.findAll());
     }
+
 
 }

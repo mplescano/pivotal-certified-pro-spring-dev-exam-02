@@ -12,4 +12,6 @@ module com.apress.cems.beans {
     requires spring.beans;
     requires spring.core;
     requires lombok;
+
+    exports com.apress.cems.beans.ci;
 }

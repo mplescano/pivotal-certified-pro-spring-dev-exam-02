@@ -1,0 +1,15 @@
+plugins {
+    id 'org.javamodularity.moduleplugin'
+}
+
+compileTestJava {
+    moduleOptions {
+        compileOnClasspath = true
+    }
+}
+
+test {
+    moduleOptions {
+        runOnClasspath = true
+    }
+}

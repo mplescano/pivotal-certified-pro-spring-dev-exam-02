@@ -18,4 +18,5 @@ module com.apress.cems.config {
     requires lombok;
 
     requires com.apress.cems.pojos;
+    requires com.apress.cems.beans;
 }

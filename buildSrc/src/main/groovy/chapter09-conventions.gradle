@@ -1,0 +1,11 @@
+plugins {
+    id 'basic-conventions'
+    id 'bom-conventions'
+}
+
+dependencies {
+    implementation misc_bom.lang3, misc_bom.slf4j, misc_bom.jsr250
+    implementation (misc_bom.logback) {
+        exclude group: "javax.activation", module: "activation"
+    }
+}

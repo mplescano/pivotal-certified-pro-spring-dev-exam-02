@@ -1,17 +1,11 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
+    id 'bom-conventions'
 }
+
 apply plugin: 'war'
-apply plugin: 'io.spring.dependency-management'
 
 ext.moduleName = 'com.apress.cems.sandbox'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
-}
 
 dependencies {
     implementation misc_bom.projectReactor
@@ -21,10 +15,6 @@ dependencies {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"
     }
-}
-
-test {
-    useJUnitPlatform()
 }
 
 war {

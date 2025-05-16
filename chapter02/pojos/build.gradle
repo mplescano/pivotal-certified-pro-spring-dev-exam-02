@@ -1,26 +1,10 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-}
-
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.pojos'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id 'chapter02-conventions'
 }
 
 jar {
+    archiveBaseName = "$moduleName"
     manifest {
         attributes(
                 "Created-By": System.getProperty('java.version'),

@@ -1,0 +1,15 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation("org.javamodularity.moduleplugin:org.javamodularity.moduleplugin.gradle.plugin:1.8.15")
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+}

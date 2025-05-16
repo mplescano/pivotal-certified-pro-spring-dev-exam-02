@@ -31,7 +31,6 @@ import com.apress.cems.dao.Detective;
 import com.apress.cems.repos.DetectiveRepo;
 import com.apress.cems.repos.util.DetectiveRowMapper;
 import com.apress.cems.util.Rank;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

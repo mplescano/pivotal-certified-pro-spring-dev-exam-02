@@ -40,30 +40,30 @@ import javax.inject.Provider;
 @Component
 public class Employee {
 
-    // private Provider<ISalary> providerSalary;
-    private ObjectFactory<ISalary> factorySalary;
+    private Provider<ISalary> providerSalary;
+    //private ObjectFactory<ISalary> factorySalary;
     // private ISalary salary;
 
     public Employee() {
     }
 
-    /*@Autowired
+    @Autowired
     public void setProviderSalary(Provider<ISalary> providerSalary) {
         this.providerSalary = providerSalary;
     }
 
     public ISalary getSalary() {
         return providerSalary.get();
-    }*/
+    }
 
-    @Autowired
+    /*@Autowired
     public void setFactorySalary(ObjectFactory<ISalary> factorySalary) {
         this.factorySalary = factorySalary;
     }
 
     public ISalary getSalary() {
         return this.factorySalary.getObject();
-    }
+    }*/
 
     /*@Autowired
     public void setSalary(ISalary salary) {

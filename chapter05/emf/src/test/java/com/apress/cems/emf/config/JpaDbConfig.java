@@ -83,6 +83,7 @@ public class JpaDbConfig {
         Properties hibernateProp = new Properties();
         hibernateProp.put("hibernate.dialect", dialect);
         hibernateProp.put("hibernate.hbm2ddl.auto", hbm2ddl);
+
         hibernateProp.put("hibernate.format_sql", true);
         hibernateProp.put("hibernate.use_sql_comments", true);
         // hibernateProp.put("hibernate.show_sql", true);

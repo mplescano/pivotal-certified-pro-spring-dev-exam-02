@@ -4,96 +4,176 @@ println(' This project is a Criminal Evidence Management System proof of concept
         '"Pivotal Certified Professional Spring Developer Exam, 2nd Edition" ' +
         ' published by Apress in order to learn and practice Spring 5.x. ')
 
-include 'chapter00:dao'
-include 'chapter00:repos'
+include 'chapter00.dao'
+project(':chapter00.dao').projectDir = file("chapter00/dao")
+include 'chapter00.repos'
+project(':chapter00.repos').projectDir = file("chapter00/repos")
 
-include 'chapter02:pojos'
-include 'chapter02:pojos-practice'
-include 'chapter02:beans'
-include 'chapter02:beans-practice'
-include 'chapter02:config'
-include 'chapter02:config-practice'
-include 'chapter02:xml'
-include 'chapter02:boot'
+include 'chapter02.pojos'
+project(':chapter02.pojos').projectDir = file("chapter02/pojos")
+include 'chapter02.pojos-practice'
+project(':chapter02.pojos-practice').projectDir = file("chapter02/pojos-practice")
+include 'chapter02.beans'
+project(':chapter02.beans').projectDir = file("chapter02/beans")
+include 'chapter02.beans-practice'
+project(':chapter02.beans-practice').projectDir = file("chapter02/beans-practice")
+include 'chapter02.config'
+project(':chapter02.config').projectDir = file("chapter02/config")
+include 'chapter02.config-practice'
+project(':chapter02.config-practice').projectDir = file("chapter02/config-practice")
+include 'chapter02.xml'
+project(':chapter02.xml').projectDir = file("chapter02/xml")
+include 'chapter02.boot'
+project(':chapter02.boot').projectDir = file("chapter02/boot")
 
-include 'chapter03:test-base'
-include 'chapter03:junit-tests'
-include 'chapter03:jupiter-tests'
-include 'chapter03:spring-tests-junit'
-include 'chapter03:spring-tests-jupiter'
-include 'chapter03:spring-profiles'
-include 'chapter03:boot-test'
-include 'chapter03:spring-tests-practice'
+include 'chapter03.test-base'
+project(':chapter03.test-base').projectDir = file("chapter03/test-base")
+include 'chapter03.junit-tests'
+project(':chapter03.junit-tests').projectDir = file("chapter03/junit-tests")
+include 'chapter03.jupiter-tests'
+project(':chapter03.jupiter-tests').projectDir = file("chapter03/jupiter-tests")
+include 'chapter03.spring-tests-junit'
+project(':chapter03.spring-tests-junit').projectDir = file("chapter03/spring-tests-junit")
+include 'chapter03.spring-tests-jupiter'
+project(':chapter03.spring-tests-jupiter').projectDir = file("chapter03/spring-tests-jupiter")
+include 'chapter03.spring-profiles'
+project(':chapter03.spring-profiles').projectDir = file("chapter03/spring-profiles")
+include 'chapter03.boot-test'
+project(':chapter03.boot-test').projectDir = file("chapter03/boot-test")
+include 'chapter03.spring-tests-practice'
+project(':chapter03.spring-tests-practice').projectDir = file("chapter03/spring-tests-practice")
 
-include 'chapter04:aop'
-include 'chapter04:aop-xml'
-include 'chapter04:aop-practice'
-include 'chapter04:aop-base'
-include 'chapter04:boot-aop'
-include 'chapter04:aop-extras'
+include 'chapter04.aop'
+project(':chapter04.aop').projectDir = file("chapter04/aop")
+include 'chapter04.aop-xml'
+project(':chapter04.aop-xml').projectDir = file("chapter04/aop-xml")
+include 'chapter04.aop-practice'
+project(':chapter04.aop-practice').projectDir = file("chapter04/aop-practice")
+include 'chapter04.aop-base'
+project(':chapter04.aop-base').projectDir = file("chapter04/aop-base")
+include 'chapter04.boot-aop'
+project(':chapter04.boot-aop').projectDir = file("chapter04/boot-aop")
+include 'chapter04.aop-extras'
+project(':chapter04.aop-extras').projectDir = file("chapter04/aop-extras")
 
-include 'chapter05:jdbc'
-include 'chapter05:jdbc-practice'
-include 'chapter05:transactions'
-include 'chapter05:transactions-practice'
-include 'chapter05:hibernate'
-include 'chapter05:hibernate-practice'
-include 'chapter05:emf'
-include 'chapter05:emf-practice'
-include 'chapter05:data-jpa'
-include 'chapter05:sec-data-jpa'
-include 'chapter05:data-jpa-practice'
-include 'chapter05:boot-jpa'
-include 'chapter05:mongo-simple'
-include 'chapter05:mongo-transactions'
-include 'chapter05:boot-mongo'
-include 'chapter05:sandbox'
+include 'chapter05.jdbc'
+project(':chapter05.jdbc').projectDir = file("chapter05/jdbc")
+include 'chapter05.jdbc-practice'
+project(':chapter05.jdbc-practice').projectDir = file("chapter05/jdbc-practice")
+include 'chapter05.transactions'
+project(':chapter05.transactions').projectDir = file("chapter05/transactions")
+include 'chapter05.transactions-practice'
+project(':chapter05.transactions-practice').projectDir = file("chapter05/transactions-practice")
+include 'chapter05.hibernate'
+project(':chapter05.hibernate').projectDir = file("chapter05/hibernate")
+include 'chapter05.hibernate-practice'
+project(':chapter05.hibernate-practice').projectDir = file("chapter05/hibernate-practice")
+include 'chapter05.emf'
+project(':chapter05.emf').projectDir = file("chapter05/emf")
+include 'chapter05.emf-practice'
+project(':chapter05.emf-practice').projectDir = file("chapter05/emf-practice")
+include 'chapter05.data-jpa'
+project(':chapter05.data-jpa').projectDir = file("chapter05/data-jpa")
+include 'chapter05.sec-data-jpa'
+project(':chapter05.sec-data-jpa').projectDir = file("chapter05/sec-data-jpa")
+include 'chapter05.data-jpa-practice'
+project(':chapter05.data-jpa-practice').projectDir = file("chapter05/data-jpa-practice")
+include 'chapter05.boot-jpa'
+project(':chapter05.boot-jpa').projectDir = file("chapter05/boot-jpa")
+include 'chapter05.mongo-simple'
+project(':chapter05.mongo-simple').projectDir = file("chapter05/mongo-simple")
+include 'chapter05.mongo-transactions'
+project(':chapter05.mongo-transactions').projectDir = file("chapter05/mongo-transactions")
+include 'chapter05.boot-mongo'
+project(':chapter05.boot-mongo').projectDir = file("chapter05/boot-mongo")
+include 'chapter05.sandbox'
+project(':chapter05.sandbox').projectDir = file("chapter05/sandbox")
 
-include 'chapter06:mvc-basic'
-include 'chapter06:mvc-basic-practice'
-include 'chapter06:mvc-basic-xml'
-include 'chapter06:mvc-thymeleaf'
-include 'chapter06:mvc-views'
-include 'chapter06:boot-web'
-include 'chapter06:boot-web-practice'
+include 'chapter06.mvc-basic'
+project(':chapter06.mvc-basic').projectDir = file("chapter06/mvc-basic")
+include 'chapter06.mvc-basic-practice'
+project(':chapter06.mvc-basic-practice').projectDir = file("chapter06/mvc-basic-practice")
+include 'chapter06.mvc-basic-xml'
+project(':chapter06.mvc-basic-xml').projectDir = file("chapter06/mvc-basic-xml")
+include 'chapter06.mvc-thymeleaf'
+project(':chapter06.mvc-thymeleaf').projectDir = file("chapter06/mvc-thymeleaf")
+include 'chapter06.mvc-views'
+project(':chapter06.mvc-views').projectDir = file("chapter06/mvc-views")
+include 'chapter06.boot-web'
+project(':chapter06.boot-web').projectDir = file("chapter06/boot-web")
+include 'chapter06.boot-web-practice'
+project(':chapter06.boot-web-practice').projectDir = file("chapter06/boot-web-practice")
 
-include 'chapter07:boot-sec'
-include 'chapter07:mvc-sec'
-include 'chapter07:mvc-sec-xml'
-include 'chapter07:mvc-sec-practice'
-include 'chapter07:mvc-sec-thymeleaf'
+include 'chapter07.boot-sec'
+project(':chapter07.boot-sec').projectDir = file("chapter07/boot-sec")
+include 'chapter07.mvc-sec'
+project(':chapter07.mvc-sec').projectDir = file("chapter07/mvc-sec")
+include 'chapter07.mvc-sec-xml'
+project(':chapter07.mvc-sec-xml').projectDir = file("chapter07/mvc-sec-xml")
+include 'chapter07.mvc-sec-practice'
+project(':chapter07.mvc-sec-practice').projectDir = file("chapter07/mvc-sec-practice")
+include 'chapter07.mvc-sec-thymeleaf'
+project(':chapter07.mvc-sec-thymeleaf').projectDir = file("chapter07/mvc-sec-thymeleaf")
 
-include 'chapter08:rest-classic'
-include 'chapter08:rest-classic-secured'
-include 'chapter08:boot-rest-jetty'
-include 'chapter08:boot-rest'
-include 'chapter08:boot-rest-practice'
-include 'chapter08:boot-rest-secured'
+include 'chapter08.rest-classic'
+project(':chapter08.rest-classic').projectDir = file("chapter08/rest-classic")
+include 'chapter08.rest-classic-secured'
+project(':chapter08.rest-classic-secured').projectDir = file("chapter08/rest-classic-secured")
+include 'chapter08.boot-rest-jetty'
+project(':chapter08.boot-rest-jetty').projectDir = file("chapter08/boot-rest-jetty")
+include 'chapter08.boot-rest'
+project(':chapter08.boot-rest').projectDir = file("chapter08/boot-rest")
+include 'chapter08.boot-rest-practice'
+project(':chapter08.boot-rest-practice').projectDir = file("chapter08/boot-rest-practice")
+include 'chapter08.boot-rest-secured'
+project(':chapter08.boot-rest-secured').projectDir = file("chapter08/boot-rest-secured")
 
-include 'chapter09:classic-app'
-include 'chapter09:boot-app'
-include 'chapter09:secured-boot-app'
-include 'chapter09:prometheus-boot-app'
+include 'chapter09.classic-app'
+project(':chapter09.classic-app').projectDir = file("chapter09/classic-app")
+include 'chapter09.boot-app'
+project(':chapter09.boot-app').projectDir = file("chapter09/boot-app")
+include 'chapter09.secured-boot-app'
+project(':chapter09.secured-boot-app').projectDir = file("chapter09/secured-boot-app")
+include 'chapter09.prometheus-boot-app'
+project(':chapter09.prometheus-boot-app').projectDir = file("chapter09/prometheus-boot-app")
 
-//cannot be included kotlin works with JDK 8
+//can be included, kotlin works with JDK 11
 //include 'chapter10'
 
-include 'chapter11:entities'
-include 'chapter11:discovery-server'
-include 'chapter11:persons-server'
-include 'chapter11:detectives-server'
-include 'chapter11:web-client'
+include 'chapter11.entities'
+project(':chapter11.entities').projectDir = file("chapter11/entities")
+include 'chapter11.discovery-server'
+project(':chapter11.discovery-server').projectDir = file("chapter11/discovery-server")
+include 'chapter11.persons-server'
+project(':chapter11.persons-server').projectDir = file("chapter11/persons-server")
+include 'chapter11.detectives-server'
+project(':chapter11.detectives-server').projectDir = file("chapter11/detectives-server")
+include 'chapter11.web-client'
+project(':chapter11.web-client').projectDir = file("chapter11/web-client")
 
-include 'chapter12:reactive-sandbox'
-include 'chapter12:reactive-boot-kinda'
-include 'chapter12:reactive-boot-hybrid'
-include 'chapter12:reactive-boot-mongo'
-include 'chapter12:reactive-boot-r2dbc'
+include 'chapter12.reactive-sandbox'
+project(':chapter12.reactive-sandbox').projectDir = file("chapter12/reactive-sandbox")
+include 'chapter12.reactive-boot-kinda'
+project(':chapter12.reactive-boot-kinda').projectDir = file("chapter12/reactive-boot-kinda")
+include 'chapter12.reactive-boot-hybrid'
+project(':chapter12.reactive-boot-hybrid').projectDir = file("chapter12/reactive-boot-hybrid")
+include 'chapter12.reactive-boot-mongo'
+project(':chapter12.reactive-boot-mongo').projectDir = file("chapter12/reactive-boot-mongo")
+include 'chapter12.reactive-boot-r2dbc'
+project(':chapter12.reactive-boot-r2dbc').projectDir = file("chapter12/reactive-boot-r2dbc")
 
-rootProject.children.each { project ->
-    project.buildFileName = "${project.name}.gradle"
-    assert project.projectDir.isDirectory()
-    assert project.buildFile.exists()
-    assert project.buildFile.isFile()
-}
+/*rootProject.children.each { project ->
+    if (!project.name.contains('chapter10')) {
+        project.buildFileName = "${project.name}.gradle"
+        assert project.projectDir.isDirectory()
+        assert project.buildFile.exists()
+        assert project.buildFile.isFile()
+    }
+    else {
+        project.buildFileName = "build.gradle.kts"
+        assert project.projectDir.isDirectory()
+        assert project.buildFile.exists()
+        assert project.buildFile.isFile()
+    }
+}*/
 

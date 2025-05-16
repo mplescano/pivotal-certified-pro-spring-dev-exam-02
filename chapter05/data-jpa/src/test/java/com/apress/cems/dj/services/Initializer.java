@@ -29,24 +29,19 @@ package com.apress.cems.dj.services;
 
 import com.apress.cems.dao.*;
 import com.apress.cems.util.*;
-import org.apache.commons.lang3.time.DateParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@Service
 @Transactional(readOnly = true, propagation = Propagation.NOT_SUPPORTED)
 public class Initializer {
     private Logger logger = LoggerFactory.getLogger(Initializer.class);

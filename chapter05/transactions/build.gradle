@@ -1,20 +1,10 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.tx'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id "chapter05-conventions"
 }
 
 dependencies {
-    implementation project(':chapter04:aop')
+    implementation project(':chapter04.aop')
     implementation spring_bom.jdbc
     testImplementation testing_bom.api, testing_bom.platformRunner, testing_bom.mockito, spring_bom.test
     testImplementation testing_bom.api
@@ -23,6 +13,7 @@ dependencies {
 
 jar {
     manifest {
+        archiveBaseName = "$moduleName"
         attributes(
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 05 - Spring JDBC Transactional",

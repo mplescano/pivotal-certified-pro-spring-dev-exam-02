@@ -11,4 +11,5 @@ module com.apress.cems.spring.tests.junit {
     requires spring.core;
     requires spring.jdbc;
     requires java.annotation;
+    requires com.apress.cems.repos;
 }

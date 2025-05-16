@@ -1,40 +1,11 @@
-buildscript {
-    def springRepo = 'https://repo.spring.io'
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "$springRepo/release" }
-        maven { url "$springRepo/snapshot" }
-        maven { url "$springRepo/milestone" }
-    }
-
-    dependencies {
-        classpath boot.springBootPlugin
-    }
+plugins {
+    id 'java-library'
+    id 'bom-conventions'
 }
-
-apply plugin: 'java-library'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     implementation boot_bom.starterWeb, cloud_bom.cloudStarter, cloud_bom.eurekaServer, spring_bom.jdbc, misc_bom.jaxbApi, boot_bom.actuator
 }
-
-dependencyManagement {
-    imports {
-        mavenBom cloud.bom
-    }
-}
-
-test {
-    useJUnitPlatform()
-
-    testLogging {
-        events 'PASSED', 'FAILED', 'SKIPPED'
-    }
-}
-
 
 jar {
     archiveBaseName = "discovery-server"

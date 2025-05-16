@@ -1,23 +1,8 @@
-buildscript {
-    def springRepo = 'https://repo.spring.io'
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "$springRepo/release" }
-        maven { url "$springRepo/snapshot" }
-        maven { url "$springRepo/milestone" }
-        maven { url "$springRepo/libs-milestone" }
-    }
-
-    dependencies {
-        classpath boot.springBootPlugin
-    }
+plugins {
+    id 'java-library'
+    id 'bom-conventions'
+    id "org.springframework.boot" version "$springBootVersion"
 }
-
-apply plugin: 'java-library'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
 
 dependencies {
     implementation boot_bom.starterR2dbc, boot_bom.starterR2dbcH2, boot_bom.starterWebflux, boot_bom.actuator, spring_bom.relational, cloud_bom.dataCommons
@@ -29,18 +14,8 @@ dependencies {
     }
 }
 
-/*dependencyManagement {
-    imports {
-        mavenBom spring.dataBom
-    }
-}*/
-
-test {
-    useJUnitPlatform()
-
-    testLogging {
-        events 'PASSED', 'FAILED', 'SKIPPED'
-    }
+springBoot {
+    mainClass = 'com.apress.cems.reactive.ReactiveApplication'
 }
 
 // decomment this after leaving a single main class to build jar

@@ -1,16 +1,6 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.aop.practice'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id "chapter04-conventions"
 }
 
 dependencies {
@@ -21,6 +11,7 @@ dependencies {
 
 jar {
     manifest {
+        archiveBaseName = "$moduleName"
         attributes(
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 04 - Spring AOP Practice",

@@ -1,20 +1,10 @@
 plugins {
     id 'java-library'
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-ext.moduleName = 'com.apress.cems.emf'
-
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-    }
+    id "chapter05-conventions"
 }
 
 dependencies {
-    implementation project(':chapter04:aop')
+    implementation project(':chapter04.aop')
     implementation spring_bom.orm, misc_bom.hikari
     implementation hibernate_bom.ehcache, hibernate_bom.em, hibernate_bom.core, hibernate_bom.validator
     testImplementation testing_bom.api, testing_bom.platformRunner, testing_bom.mockito, spring_bom.test
@@ -24,6 +14,7 @@ dependencies {
 
 jar {
     manifest {
+        archiveBaseName = "$moduleName"
         attributes(
                 "Created-By": System.getProperty('java.version'),
                 "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 05 - Spring Transactional Using Hibernate EntityManagerFactory",
