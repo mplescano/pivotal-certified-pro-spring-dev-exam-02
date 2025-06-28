@@ -25,41 +25,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.apress.cems.config;
+package com.apress.cems.beans.fi;
 
-import com.apress.cems.pojos.repos.EvidenceRepo;
+import com.apress.cems.beans.ci.ComposedBean;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import javax.sql.DataSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@ExtendWith(SpringExtension.class)
-@ActiveProfiles("test")
-@ContextConfiguration(classes = {ProdDataSourceConfig.class, TestProfileDataSourceConfig.class, RepositoryConfig.class})
-public class ProfilesTest {
-
-    @Autowired
-    EvidenceRepo evidenceRepo;
-
-    @Autowired
-    DataSource dataSource;
-
+public class FiAppCfgOldTest {
     @Test
-    public void testInjectedBeans(){
-        assertNotNull(dataSource instanceof DriverManagerDataSource);
-        assertNotNull(evidenceRepo);
+    void testSimpleBeans() {
+        try (var ctx = new AnnotationConfigApplicationContext(FiAppCfg.class)) {
+            var composedBean = ctx.getBean(ComposedBean.class);
+            assertNotNull(composedBean);
+            assertNotNull(composedBean.getSimpleBean());
+            assertEquals("AB123", composedBean.getCode());
+            assertTrue(composedBean.isComplicated());
+        }
     }
-
 }
-

@@ -13,7 +13,7 @@ dependencies {
         exclude group: "javax.activation", module: "activation"
     }
 
-    testImplementation testing_bom.api
+    testImplementation spring_bom.test, testing_bom.api
     testRuntimeOnly testing_bom.platformRunner, testing_bom.engine
 }
 

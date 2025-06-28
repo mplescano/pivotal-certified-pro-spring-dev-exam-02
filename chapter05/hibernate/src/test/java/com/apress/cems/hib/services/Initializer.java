@@ -25,11 +25,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.apress.cems.emf.services;
+package com.apress.cems.hib.services;
 
 import com.apress.cems.aop.service.PersonService;
 import com.apress.cems.dao.Person;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,9 +45,9 @@ import java.time.LocalDateTime;
  */
 @Service
 @Transactional(readOnly = true, propagation = Propagation.NOT_SUPPORTED)
-@Slf4j
 public class Initializer {
 
+    private Logger logger = LoggerFactory.getLogger(Initializer.class);
     private PersonService personService;
 
     public Initializer(@Qualifier("personServiceImpl") PersonService personService) {
@@ -56,8 +55,8 @@ public class Initializer {
     }
 
     @PostConstruct
-    private void init() {
-        log.info(" -->> Starting database initialization...");
+    public void init() {
+        logger.info(" -->> Starting database initialization...");
         Person person = new Person();
         person.setUsername("sherlock.holmes");
         person.setFirstName("Sherlock");
@@ -73,6 +72,6 @@ public class Initializer {
         person.setPassword("bagy");
         person.setHiringDate(LocalDateTime.now());
         personService.save(person);
-        log.info(" -->> Database initialization finished.");
+        logger.info(" -->> Database initialization finished.");
     }
 }

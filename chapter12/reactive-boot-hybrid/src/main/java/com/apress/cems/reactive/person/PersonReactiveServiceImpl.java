@@ -49,15 +49,18 @@ public class PersonReactiveServiceImpl implements PersonReactiveService {
         this.personRepo = personRepo;
     }
 
-    @Override public Mono<Person> findById(Long id) {
+    @Override
+    public Mono<Person> findById(Long id) {
         return Mono.justOrEmpty(personRepo.findById(id));
     }
 
-    @Override public Flux<Person> findAll() {
+    @Override
+    public Flux<Person> findAll() {
         return Flux.fromIterable(personRepo.findAll());
     }
 
-    @Override public Mono<Person> save(Mono<Person> personMono) {
+    @Override
+    public Mono<Person> save(Mono<Person> personMono) {
         return personMono.doOnNext(person ->  {
             // This a workaround for a Jackson bug, the field is actually not deserialized. This is the issue I've found already created on GitHub:
             // https://github.com/FasterXML/jackson-databind/issues/935#issuecomment-520070413.
@@ -70,7 +73,8 @@ public class PersonReactiveServiceImpl implements PersonReactiveService {
         });
     }
 
-    @Override public Mono<Void> update(Long id, Mono<Person> personMono) {
+    @Override
+    public Mono<Void> update(Long id, Mono<Person> personMono) {
         Optional<Person> personOpt = personRepo.findById(id);
         if(personOpt.isPresent()) {
             Person original = personOpt.get();

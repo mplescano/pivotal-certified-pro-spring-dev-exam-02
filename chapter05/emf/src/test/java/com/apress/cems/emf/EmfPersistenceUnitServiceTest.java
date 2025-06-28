@@ -21,6 +21,7 @@ public class EmfPersistenceUnitServiceTest {
 
     @Autowired
     EmfPersistenceUnitService emfPersistenceUnitService;
+
     @Autowired
     private TxPersistenceContextPersonService txPcPersonService;
 

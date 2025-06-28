@@ -38,5 +38,5 @@ logging:
     console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   level:
     root: INFO
-    org.springframework: TRACE
+    org.springframework: DEBUG
     com.apress.cems.reactive: DEBUG

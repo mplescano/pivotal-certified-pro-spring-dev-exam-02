@@ -13,9 +13,9 @@
 
     <logger name="com.apress.cems.hib" level="debug"/>
 
-    <logger name="org.springframework" level="debug"/>
+    <logger name="org.springframework" level="info"/>
 
-    <logger name="org.hibernate" level="debug" />
+    <logger name="org.hibernate" level="info" />
 
     <logger name="org.h2" level="debug"/>
 

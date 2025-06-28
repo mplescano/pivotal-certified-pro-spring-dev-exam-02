@@ -5,7 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation boot_bom.starterR2dbc, boot_bom.starterR2dbcH2, boot_bom.starterWebflux, boot_bom.actuator, spring_bom.relational, cloud_bom.dataCommons
+    implementation boot_bom.starterR2dbc, boot_bom.starterR2dbcH2, boot_bom.starterWebflux, boot_bom.actuator,
+            spring_bom.relational, cloud_bom.dataCommons
 
     testImplementation testing_bom.reactorTest
     testImplementation (boot_bom.starterTest) {

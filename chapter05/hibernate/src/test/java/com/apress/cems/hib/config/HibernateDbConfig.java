@@ -84,7 +84,7 @@ public class HibernateDbConfig {
 
     @Bean
     public DataSource dataSource() {
-        try {
+        /*try {*/
             HikariConfig hikariConfig = new HikariConfig();
             hikariConfig.setDriverClassName(driverClassName);
             hikariConfig.setJdbcUrl(url);
@@ -95,9 +95,9 @@ public class HibernateDbConfig {
             hikariConfig.setConnectionTestQuery("SELECT 1");
             hikariConfig.setPoolName("cemsPool");
             return new HikariDataSource(hikariConfig);
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             return null;
-        }
+        }*/
     }
 
     @Bean

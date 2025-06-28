@@ -9,7 +9,7 @@ dependencies {
 
     runtimeOnly misc_bom.h2
 
-    testImplementation testing_bom.reactorTest, boot_bom.starterWebflux
+    testImplementation testing_bom.reactorTest, 'org.springframework:spring-webflux', 'io.projectreactor.netty:reactor-netty-http'/*boot_bom.starterWebflux*/
     testImplementation (boot_bom.starterTest) {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         exclude group: "junit", module: "junit"

@@ -29,20 +29,19 @@ package com.apress.cems.config;
 
 import com.apress.cems.pojos.repos.DetectiveRepo;
 import com.apress.cems.pojos.repos.EvidenceRepo;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {EnvTestDataSourceConfig.class, RepositoryConfig.class})
 //@ContextConfiguration(classes = {ProdDataSourceConfig.class, RepositoryConfig.class})
 //@ActiveProfiles("prod")
