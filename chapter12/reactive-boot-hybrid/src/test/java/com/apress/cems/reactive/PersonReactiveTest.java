@@ -36,8 +36,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since 1.0
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ReactiveHybridTest {
+class PersonReactiveTest {
 
     @LocalServerPort
     private Integer port;
@@ -95,4 +93,11 @@ class ReactiveHybridTest {
         });
     }
 
+    @Test
+    void shouldReturnAEmptyPerson() {
+        webTestClient.get().uri("/0")
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON);
+    }
 }

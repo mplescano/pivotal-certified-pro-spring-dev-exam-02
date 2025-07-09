@@ -25,9 +25,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.apress.cems.reactive.person;
+package com.apress.cems.reactive.person.reactor;
 
 import com.apress.cems.person.Person;
+import com.apress.cems.reactive.person.PersonRepo;
 import com.apress.cems.util.NumberGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -51,7 +52,14 @@ public class PersonReactiveServiceImpl implements PersonReactiveService {
 
     @Override
     public Mono<Person> findById(Long id) {
-        return Mono.justOrEmpty(personRepo.findById(id));
+        return Mono.defer(() -> {
+            try {
+                return Mono.just(personRepo.findById(id).orElseThrow());
+            }
+            catch (Exception ex) {
+                return Mono.error(ex);
+            }
+        });
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.apress.cems.reactive.person;
+package com.apress.cems.reactive.person.reactor;
 
 import com.apress.cems.person.Person;
 import reactor.core.publisher.Flux;
