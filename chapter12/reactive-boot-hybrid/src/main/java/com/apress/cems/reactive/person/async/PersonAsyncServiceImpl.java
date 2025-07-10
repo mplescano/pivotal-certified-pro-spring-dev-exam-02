@@ -30,13 +30,11 @@ package com.apress.cems.reactive.person.async;
 import com.apress.cems.person.Person;
 import com.apress.cems.reactive.person.PersonRepo;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 
 /**
  * @author Iuliana Cosmina
