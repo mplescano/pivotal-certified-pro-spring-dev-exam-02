@@ -30,6 +30,7 @@ package com.apress.cems.reactive.person.async;
 import com.apress.cems.person.Person;
 import com.apress.cems.reactive.person.PersonRepo;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,25 +53,29 @@ public class PersonAsyncServiceImpl implements PersonAsyncService {
 
     @Override
     @Async
-    public Future<Person> findById(Long id) {
-        return CompletableFuture.completedFuture(personRepo.findById(id).orElse(null));
+    public CompletableFuture<Person> findById(Long id) {
+        try {
+            return CompletableFuture.completedFuture(personRepo.findById(id).orElseThrow());
+        } catch(Exception ex) {
+            return CompletableFuture.failedFuture(ex);
+        }
     }
 
     @Override
     @Async
-    public Future<List<Person>> findAll() {
+    public CompletableFuture<List<Person>> findAll() {
         return CompletableFuture.completedFuture(personRepo.findAll());
     }
 
     @Override
     @Async
-    public Future<Person> save(Person person) {
+    public CompletableFuture<Person> save(Person person) {
         return CompletableFuture.completedFuture(personRepo.save(person));
     }
 
     @Override
     @Async
-    public void update(Long id, Person updatedPerson) {
+    public CompletableFuture<Void> update(Long id, Person updatedPerson) {
         Optional<Person> personOpt = personRepo.findById(id);
         if(personOpt.isPresent()) {
             Person original = personOpt.get();
@@ -79,11 +84,13 @@ public class PersonAsyncServiceImpl implements PersonAsyncService {
             original.setLastName(updatedPerson.getLastName());
             personRepo.save(original);
         }
+        return CompletableFuture.completedFuture(null);
     }
 
     @Override
     @Async
-    public void delete(Long id) {
+    public CompletableFuture<Void> delete(Long id) {
         personRepo.findById(id).ifPresent(personRepo::delete);
+        return CompletableFuture.completedFuture(null);
     }
 }

@@ -4,7 +4,15 @@ server:
     context-path: /
   compression:
     enabled: true
-  address: 0.0.0.0
+  address: 0.0.0.0 #default 0.0.0.0
+  tomcat:
+    threads:
+      max: 200 #default 200 Maximum amount of worker threads. Doesn't have an effect if virtual threads are enabled.
+      min-spare: 20 #default 10 Minimum amount of worker threads. Doesn't have an effect if virtual threads are enabled.
+    max-connections: 8192 #default 8192 Maximum number of connections that the server accepts and processes at any given time. Once the limit has been reached, the operating system may still accept connections based on the "acceptCount" property.
+    accept-count: 100 #default 100 Maximum queue length for incoming connection requests when all possible request processing threads are in use.
+    connection-timeout: 2000 #default 60000 milliseconds Amount of time the connector will wait, after accepting a connection, for the request URI line to be presented.
+
 spring:
   datasource:
     hikari:
@@ -12,9 +20,13 @@ spring:
       jdbc-url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
       username: sa
       password:
-      maximum-pool-size: 5
-      connection-test-query: "SELECT 1"
       pool-name: cemsPool
+      connection-test-query: "SELECT 1" #default none, If your driver supports JDBC4 we strongly recommend not setting this property. This is for "legacy" drivers that do not support the JDBC4 Connection.isValid() API.
+      maximum-pool-size: 30 #default 10
+      minimum-idle: 10 #default same as maximumPoolSize, for maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
+      idle-timeout: 30000 #default: 600000 (10 minutes) the maximum amount of time that a connection is allowed to sit idle in the pool. This setting only applies when minimumIdle is defined to be less than maximumPoolSize. Idle connections will not be retired once the pool reaches minimumIdle connections.
+      connection-timeout: 2000 #default: 30000 (30 seconds) This property controls the maximum number of milliseconds that a client (that's you) will wait for a connection from the pool. If this time is exceeded without a connection becoming available, a SQLException will be thrown.
+      max-lifetime: 1800000 #default: 1800000 (30 minutes) This property controls the maximum lifetime of a connection in the pool. An in-use connection will never be retired, only when it is closed will it then be removed.
   jpa:
     generate-ddl: true
     hibernate:

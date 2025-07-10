@@ -29,6 +29,7 @@ package com.apress.cems.reactive.person.future;
 
 import com.apress.cems.person.Person;
 import com.apress.cems.reactive.person.PersonRepo;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class PersonFutureServiceImpl implements PersonFutureService {
 
     @Override
     public Future<Person> findById(Long id) {
-        return CompletableFuture.supplyAsync(() -> personRepo.findById(id).orElse(null));
+        return CompletableFuture.supplyAsync(() -> personRepo.findById(id).orElseThrow());
     }
 
     @Override
@@ -66,20 +67,20 @@ public class PersonFutureServiceImpl implements PersonFutureService {
 
     @Override
     public Future<Void> update(Long id, Person updatedPerson) {
-        return CompletableFuture.runAsync(() -> {
-            Optional<Person> personOpt = personRepo.findById(id);
-            if(personOpt.isPresent()) {
-                Person original = personOpt.get();
-                original.setUsername(updatedPerson.getUsername());
-                original.setFirstName(updatedPerson.getFirstName());
-                original.setLastName(updatedPerson.getLastName());
-                personRepo.save(original);
-            }
-        });
+        Optional<Person> personOpt = personRepo.findById(id);
+        if(personOpt.isPresent()) {
+            Person original = personOpt.get();
+            original.setUsername(updatedPerson.getUsername());
+            original.setFirstName(updatedPerson.getFirstName());
+            original.setLastName(updatedPerson.getLastName());
+            personRepo.save(original);
+        }
+        return new AsyncResult<>(null);
     }
 
     @Override
     public Future<Void> delete(Long id) {
-        return CompletableFuture.runAsync(() -> personRepo.findById(id).ifPresent(personRepo::delete));
+        personRepo.findById(id).ifPresent(personRepo::delete);
+        return new AsyncResult<>(null);
     }
 }

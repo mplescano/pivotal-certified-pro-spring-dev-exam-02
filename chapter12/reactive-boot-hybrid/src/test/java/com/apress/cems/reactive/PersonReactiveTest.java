@@ -97,7 +97,7 @@ class PersonReactiveTest {
     void shouldReturnAEmptyPerson() {
         webTestClient.get().uri("/0")
                 .exchange()
-                .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON);
+                .expectStatus().isNotFound()/*
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)*/;
     }
 }

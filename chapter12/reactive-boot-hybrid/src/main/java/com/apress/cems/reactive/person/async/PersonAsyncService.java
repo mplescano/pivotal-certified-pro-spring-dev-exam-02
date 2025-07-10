@@ -3,7 +3,7 @@ package com.apress.cems.reactive.person.async;
 import com.apress.cems.person.Person;
 
 import java.util.List;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Iuliana Cosmina
@@ -11,13 +11,13 @@ import java.util.concurrent.Future;
  */
 public interface PersonAsyncService {
 
-    Future<Person> findById(Long id);
+    CompletableFuture<Person> findById(Long id);
 
-    Future<List<Person>> findAll();
+    CompletableFuture<List<Person>> findAll();
 
-    Future<Person> save(Person person);
+    CompletableFuture<Person> save(Person person);
 
-    void update(Long id, Person person);
+    CompletableFuture<Void> update(Long id, Person person);
 
-    void delete(Long id);
+    CompletableFuture<Void> delete(Long id);
 }

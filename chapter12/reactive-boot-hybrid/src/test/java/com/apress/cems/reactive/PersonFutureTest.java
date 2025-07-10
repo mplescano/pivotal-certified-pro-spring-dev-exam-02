@@ -96,4 +96,12 @@ class PersonFutureTest {
         });
     }
 
+    @Test
+    void shouldReturnAEmptyPerson() {
+        webTestClient.get().uri("/0")
+                .exchange()
+                .expectStatus().isNotFound()/*
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)*/;
+    }
+
 }

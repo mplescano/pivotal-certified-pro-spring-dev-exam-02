@@ -46,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since 1.0
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PersonLegacyTest {
+class PersonAsyncTest {
 
     @LocalServerPort
     private Integer port;
@@ -57,7 +57,7 @@ class PersonLegacyTest {
 
     @BeforeEach
     void setUp(){
-        baseUrl = baseUrl.concat(":").concat(port.toString()).concat("/persons-legacy");
+        baseUrl = baseUrl.concat(":").concat(port.toString()).concat("/persons-async");
         webTestClient = WebTestClient
                 .bindToServer()
                 .baseUrl(baseUrl)
